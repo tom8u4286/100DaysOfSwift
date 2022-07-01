@@ -11,11 +11,13 @@ class ViewController: UIViewController {
     
     var cluesLabel: UILabel!
     var answersLabel: UILabel!
+    // 當前User點選的按鈕組合(如點了HA與UNT：HAUNT)
     var currentAnswer: UITextField!
     var scoreLabel: UILabel!
+    // 字母片段按鈕陣列
     var letterButtons = [UIButton]()
     
-    // 所有被User點選到的答案
+    // 所有被User點選到的答案片段按鈕(如: HA)
     var activatedButtons = [UIButton]()
     
     var solutions = [String]()
@@ -149,18 +151,72 @@ class ViewController: UIViewController {
         loadLevel()
     }
     
+    // 當User點選文字片段按鈕(如: HA)時觸發
     @objc func letterTapped(_ sender: UIButton){
+        // 取得這個按鈕的文字
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        
+        // User當前答案中，加入這個按鈕的文字
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        // 目前被點選的按鈕，加入activatedButtons陣列中
+        activatedButtons.append(sender)
+        // 隱藏本按鈕
+        sender.isHidden = true
         
     }
     
+    // 當User點選submit按鈕時觸發
     @objc func submitTapped(_ sender: UIButton){
+        // 取得User目前所有點選的文字組合
+        guard let answerText = currentAnswer.text else { return }
         
+        // 找尋再答案陣列(solutions)中，符合這個字詞的index
+        if let solutionPosition = solutions.firstIndex(of: answerText){
+            // 由於if let的撰寫方式，在solutionPosition確定有抓到值後
+            // 才會進行以下工作
+            
+            // 清除所有"被點按的按鈕"陣列
+            activatedButtons.removeAll()
+            
+            var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
+            splitAnswers?[solutionPosition] = answerText
+            answersLabel.text = splitAnswers?.joined(separator:"\n")
+            
+            currentAnswer.text = ""
+            score += 1
+            
+            if score % 7 == 0 {
+                let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
+                present(ac, animated: true)
+            }
+        }
     }
     
+    func levelUp(action: UIAlertAction){
+        level += 1
+        
+        solutions.removeAll(keepingCapacity: true)
+        loadLevel()
+        
+        for button in letterButtons {
+            button.isHidden = false
+        }
+    }
+    
+    // 當User點選clear按鈕時觸發
     @objc func clearTapped(_ sender: UIButton){
+        currentAnswer.text = ""
         
+        for button in activatedButtons{
+            button.isHidden = false
+        }
+        
+        activatedButtons.removeAll()
     }
     
+    
+    // 載入題目檔
     func loadLevel(){
         // 本題的提示文字
         var clueString = ""
