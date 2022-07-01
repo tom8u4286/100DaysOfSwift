@@ -23,7 +23,12 @@ class ViewController: UIViewController {
     var solutions = [String]()
     
     // User當前的得分
-    var score = 0
+    var score = 0 {
+        // 當score被asign新值時觸發didSet
+        didSet{
+            scoreLabel.text = "分數: \(score)"
+        }
+    }
     // 遊戲難度
     var level = 1
     
@@ -184,6 +189,10 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            
+            // 此處可以設計 scoreLabel.text = "Score: \(score)" 來修改右上角的分數標籤
+            // 但是如果這個程式有多處可以觸發加分，就會有多處要撰寫
+            // 因此可以在scoreLabel變數後的didSet裡
             
             if score % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
