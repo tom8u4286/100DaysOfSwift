@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD9F7A992861C97F00E849A7 /* Project9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project9.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9F7A992861C97F00E849A7 /* Project7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9F7A9C2861C97F00E849A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD9F7A9E2861C97F00E849A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DD9F7AA02861C97F00E849A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		DD9F7A902861C97F00E849A7 = {
 			isa = PBXGroup;
 			children = (
-				DD9F7A9B2861C97F00E849A7 /* Project9 */,
+				DD9F7A9B2861C97F00E849A7 /* Project7 */,
 				DD9F7A9A2861C97F00E849A7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		DD9F7A9A2861C97F00E849A7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD9F7A992861C97F00E849A7 /* Project9.app */,
+				DD9F7A992861C97F00E849A7 /* Project7.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DD9F7A9B2861C97F00E849A7 /* Project9 */ = {
+		DD9F7A9B2861C97F00E849A7 /* Project7 */ = {
 			isa = PBXGroup;
 			children = (
 				DD9F7A9C2861C97F00E849A7 /* AppDelegate.swift */,
@@ -73,15 +73,15 @@
 				DD9F7AB12862E3B600E849A7 /* Petition.swift */,
 				DD9F7AB42862E4FE00E849A7 /* Petitions.swift */,
 			);
-			path = Project9;
+			path = Project7;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DD9F7A982861C97F00E849A7 /* Project9 */ = {
+		DD9F7A982861C97F00E849A7 /* Project7 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD9F7AAD2861C98100E849A7 /* Build configuration list for PBXNativeTarget "Project9" */;
+			buildConfigurationList = DD9F7AAD2861C98100E849A7 /* Build configuration list for PBXNativeTarget "Project7" */;
 			buildPhases = (
 				DD9F7A952861C97F00E849A7 /* Sources */,
 				DD9F7A962861C97F00E849A7 /* Frameworks */,
@@ -91,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = Project9;
+			name = Project7;
 			productName = Project7;
-			productReference = DD9F7A992861C97F00E849A7 /* Project9.app */;
+			productReference = DD9F7A992861C97F00E849A7 /* Project7.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DD9F7A942861C97F00E849A7 /* Build configuration list for PBXProject "Project9" */;
+			buildConfigurationList = DD9F7A942861C97F00E849A7 /* Build configuration list for PBXProject "Project7" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DD9F7A982861C97F00E849A7 /* Project9 */,
+				DD9F7A982861C97F00E849A7 /* Project7 */,
 			);
 		};
 /* End PBXProject section */
@@ -292,12 +292,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WGV47WB79A;
-				INFOPLIST_FILE = Project9/Info.plist;
+				INFOPLIST_FILE = Project7/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.Project9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.Project7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -311,12 +311,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WGV47WB79A;
-				INFOPLIST_FILE = Project9/Info.plist;
+				INFOPLIST_FILE = Project7/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.Project9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.Project7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -326,7 +326,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD9F7A942861C97F00E849A7 /* Build configuration list for PBXProject "Project9" */ = {
+		DD9F7A942861C97F00E849A7 /* Build configuration list for PBXProject "Project7" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD9F7AAB2861C98100E849A7 /* Debug */,
@@ -335,7 +335,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD9F7AAD2861C98100E849A7 /* Build configuration list for PBXNativeTarget "Project9" */ = {
+		DD9F7AAD2861C98100E849A7 /* Build configuration list for PBXNativeTarget "Project7" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD9F7AAE2861C98100E849A7 /* Debug */,
