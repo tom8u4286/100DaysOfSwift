@@ -9,6 +9,8 @@ import UIKit
 class ViewController: UICollectionViewController,
                     UIImagePickerControllerDelegate,
                     UINavigationControllerDelegate {
+    
+    var people = [Person]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +42,52 @@ class ViewController: UICollectionViewController,
         // 產生一組隨機的UUID
         let imageName = UUID().uuidString
         
-        //
+        /** getDocumentsDirectory將取得app的路徑位置，
+         * appendingPathComponent將在app的路徑下，
+         * 新增一個我們預計要存放image的路徑位置。
+         */
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
         
+        let person = Person(name: "Unknown", image: imageName)
+        people.append(person)
+        collectionView.reloadData()
+        
         /** 此處的dimiss沒有說明被dismiss的controller
          *  會主動將最上層的Controller dismiss。
          */
         dismiss(animated: true)
         
+    }
+    
+    /** 實作當User點選一個Cell時，
+     * 要彈出Alert讓User可以編輯Cell的名稱
+     */
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let person = people[indexPath.item]
+        
+        let ac = UIAlertController(title: "更改名稱", message: nil, preferredStyle: .alert)
+        
+        // 新增一個文字輸入欄
+        ac.addTextField()
+        
+        // 新增取消
+        ac.addAction(UIAlertAction(title: "取消", style: .default))
+        
+        ac.addAction(UIAlertAction(title: "確認", style: .default){ [weak self, weak ac] _ in
+            guard let newName = ac?.textFields?[0].text else { return }
+            
+            person.name = newName
+            
+            // 重新刷新頁面
+            self?.collectionView.reloadData()
+            
+        })
+        
+        present(ac, animated: true)
     }
     
     /** 取得本app的documentDirectory
@@ -66,14 +102,15 @@ class ViewController: UICollectionViewController,
     }
     
     
-    /** 設定Cell的數量
+    /** 設定本UICollectionView的Cell的數量
      *  關鍵字 numberOfItemsInSection
      */
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        // 回傳目前people陣列的數量
+        return people.count
     }
     
-    /** 設定Cell的內容
+    /** 設定各個Cell的內容
      *  關鍵字: cellForItemAt
      */
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,6 +123,26 @@ class ViewController: UICollectionViewController,
             fatalError("無法找到PersonCell")
         }
         
+        let person = people[indexPath.item]
+        
+        /** cell已經被轉型成PersonCell
+         *  PersonCell內有兩個儲存變數: imageView(UIImageView)與 name(UILabel)
+         */
+        cell.name.text = person.name
+        
+        /** Person類別中有兩變數
+         * name(String) 與 image(String)
+         */
+        let path = getDocumentsDirectory().appendingPathComponent(person.image)
+        
+        cell.imageView.image = UIImage(contentsOfFile: path.path)
+        
+        cell.imageView.layer.borderColor = UIColor(white: 0.1, alpha: 0.3).cgColor
+        cell.imageView.layer.borderWidth = 2
+        cell.imageView.layer.cornerRadius = 3
+        
+        cell.layer.cornerRadius = 7
+
         return cell
     }
     
