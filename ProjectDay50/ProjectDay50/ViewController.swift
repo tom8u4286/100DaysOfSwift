@@ -7,18 +7,32 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController,
+                      UIImagePickerControllerDelegate,
+                      UINavigationControllerDelegate{
 
-    // User挑選照片後，照片的名稱會被加入進此陣列
-    var pictures = [String]()
+    // User挑選照片後，照片會被加入進此陣列
+    var pictures = [Picture]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
         
         // 新增左上方加號按鈕
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPicture))
+        
+        let defaults = UserDefaults.standard
+        
+        // 將先前存進UserDefaults的資料存放入變數var中
+        if let savedPicture = defaults.object(forKey: "pictures") as? Data{
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                pictures = try jsonDecoder.decode([Picture].self, from: savedPicture)
+            } catch {
+                print("讀取失敗！")
+            }
+            
+        }
         
     }
     
@@ -29,9 +43,71 @@ class ViewController: UITableViewController {
         // 設定picker為相機
         picker.sourceType = .camera
         
+        /** 將picker的delegate設定為self時，
+         *  必須follow UIImagePickerControllerDelegate, UINavigationControllerDelegate
+         */
+        picker.delegate = self
+        
         present(picker, animated: true)
         
     }
+    
+    //
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("完成照相！")
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        // 隨機產生一個相片的UUID
+        let imageName = UUID().uuidString
+        
+        /** getDocumentsDirectory將取得app的路徑位置，
+         * appendingPathComponent將在app的路徑下，
+         * 新增一個我們預計要存放image的路徑位置。
+         */
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
+        }
+        
+        let picture = Picture(filename: imageName, caption:"Unknown")
+        pictures.append(picture)
+        
+        // 將picture存入UserDefault DB
+        save()
+        
+        // 頁面重新整理
+        tableView.reloadData()
+        
+        // 離開照相模組
+        dismiss(animated: true)
+    }
+    
+    
+    // 將變數picture存入UserDefault DB
+    func save(){
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(pictures) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "pictures")
+        } else {
+            print("Failed to save pictures.")
+        }
+            
+    }
+    
+    /** 取得本app的documentDirectory
+     *  FileManager說明
+     *  .documentDirectory: asks for the documents directory,
+     *  .userDomainMask: the path to be relative to the user's home directory.
+     */
+    func getDocumentsDirectory() -> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print("getDocumentsDirectory: \(path[0])")
+        return path[0]
+    }
+    
     
     // 數兩設定為pictures的內容數量
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,14 +118,21 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
         
-        cell.textLabel?.text = pictures[indexPath.row]
+        cell.textLabel?.text = pictures[indexPath.row].caption
         
         return cell
     }
     
     // 當點選某一Cell時的動作
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.filename = pictures[indexPath.row].filename
+            vc.imageCaption = pictures[indexPath.row].caption
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
 
 
