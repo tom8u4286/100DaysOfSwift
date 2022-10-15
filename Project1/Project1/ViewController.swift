@@ -15,6 +15,9 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        title = "Storm Viewer"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         // 以FileManager 取出App中的檔案名稱
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!

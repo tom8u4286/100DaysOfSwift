@@ -22,7 +22,7 @@ class Person: NSObject, NSCoding {
      * 要讀取此筆資料時，再用decoder解碼。
      */
     required init?(coder aDecoder: NSCoder){
-        let test = aDecoder.decodeObject(forKey: <#T##String#>)
+//        let test = aDecoder.decodeObject(forKey: <#T##String#>)
         /** 由於decodeObject轉換出來的格式為Any?，
          * 轉換回String資料格式。
          * 我們使用decodeObject是因為目前沒有decodeString的function
