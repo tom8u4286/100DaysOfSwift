@@ -54,33 +54,45 @@ class ViewController: UITableViewController,
     
     //
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("完成照相！")
-        guard let image = info[.originalImage] as? UIImage else { return }
-        
         // 隨機產生一個相片的UUID
         let imageName = UUID().uuidString
-        
         /** getDocumentsDirectory將取得app的路徑位置，
          * appendingPathComponent將在app的路徑下，
          * 新增一個我們預計要存放image的路徑位置。
          */
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
+        // 以下彈出輸入Caption的對話框
+        let ac = UIAlertController(title: "設定名稱", message: nil, preferredStyle: .alert)
+        // 新增一個文字輸入欄
+        ac.addTextField()
+        // 新增取消按鈕
+        ac.addAction(UIAlertAction(title: "取消", style: .default))
+        // 新增確認按鈕
+        ac.addAction(UIAlertAction(title: "確認", style: .default){ [weak self, weak ac] _ in
+            guard let newName = ac?.textFields?[0].text else { return }
+            
+            guard let image = info[.originalImage] as? UIImage else { return }
+            
+            if let jpegData = image.jpegData(compressionQuality: 0.8) {
+                try? jpegData.write(to: imagePath)
+            }
+            
+            let picture = Picture(filename: imageName, caption: newName)
+            self?.pictures.append(picture)
+            
+            // 頁面重新整理
+            self?.tableView.reloadData()
+            
+            // 將picture存入UserDefault DB
+            self?.save()
+            
+        })
+        
+        dismiss(animated: true){ [weak self] in
+            self?. present(ac, animated: true)
         }
         
-        let picture = Picture(filename: imageName, caption:"Unknown")
-        pictures.append(picture)
-        
-        // 將picture存入UserDefault DB
-        save()
-        
-        // 頁面重新整理
-        tableView.reloadData()
-        
-        // 離開照相模組
-        dismiss(animated: true)
     }
     
     
