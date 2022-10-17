@@ -90,7 +90,7 @@ class ViewController: UITableViewController,
         })
         
         dismiss(animated: true){ [weak self] in
-            self?. present(ac, animated: true)
+            self?.present(ac, animated: true)
         }
         
     }
