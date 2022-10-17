@@ -20,6 +20,9 @@ class ViewController: UIViewController,
     // intensity可以翻譯為"強度"，是UI滑桿
     @IBOutlet var intensity: UISlider!
     
+    // 更改Filter的按鈕
+    @IBOutlet var changeFilterButton: UIButton!
+
     // 用currentImage作為濾鏡currentFilter的input
     var currentImage: UIImage!
 
@@ -27,7 +30,6 @@ class ViewController: UIViewController,
     var context: CIContext!
     // 當前使用的濾鏡
     var currentFilter: CIFilter!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +102,9 @@ class ViewController: UIViewController,
         guard currentImage != nil else { return }
         
         guard let actionTitle = action.title else { return }
+        
+        // 將ChangeFilter的按鈕文字改為當前的Filter名稱
+        changeFilterButton.setTitle(actionTitle, for: .normal)
         
         // 初始新的CIFilter
         currentFilter = CIFilter(name: actionTitle)
