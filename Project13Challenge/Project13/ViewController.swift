@@ -19,6 +19,10 @@ class ViewController: UIViewController,
     
     // intensity可以翻譯為"強度"，是UI滑桿
     @IBOutlet var intensity: UISlider!
+    // radius 滑桿
+    @IBOutlet var radius: UISlider!
+    // scale 滑桿
+    @IBOutlet var scale: UISlider!
     
     // 更改Filter的按鈕
     @IBOutlet var changeFilterButton: UIButton!
@@ -129,7 +133,7 @@ class ViewController: UIViewController,
     }
     
     
-    // 滑桿值發生改變時觸發
+    // intensityChanged滑桿值發生改變時觸發
     @IBAction func intensityChanged(_ sender: Any) {
         applyProcessing()
     }
@@ -146,11 +150,11 @@ class ViewController: UIViewController,
         }
         
         if inputKeys.contains(kCIInputRadiusKey){
-            currentFilter.setValue(intensity.value * 200, forKey: kCIInputRadiusKey)
+            currentFilter.setValue(radius.value * 200, forKey: kCIInputRadiusKey)
         }
         
         if inputKeys.contains(kCIInputScaleKey){
-            currentFilter.setValue(intensity.value * 10, forKey: kCIInputScaleKey)
+            currentFilter.setValue(scale.value * 10, forKey: kCIInputScaleKey)
         }
         
         if inputKeys.contains(kCIInputCenterKey){
