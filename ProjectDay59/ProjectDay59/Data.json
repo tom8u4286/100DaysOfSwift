@@ -1,0 +1,34 @@
+{
+    "countries": [
+        {
+            "name": "Japan",
+            "language": "Japanese",
+            "population": 124214766,
+            "area": 377975,
+        },
+        {
+            "name": "United Kingdom",
+            "language": "English",
+            "population": 67326569,
+            "area": 242495,
+        },
+        {
+            "name": "United States",
+            "language": "English",
+            "population": 331893745,
+            "area": 9833520,
+        },
+        {
+            "name": "France",
+            "language": "Franch",
+            "population": 67897000,
+            "area": 643801,
+        },
+        {
+            "name": "Germany",
+            "language": "German",
+            "population": 83695430,
+            "area": 357022,
+        }
+    ]
+}
