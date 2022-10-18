@@ -29,6 +29,11 @@ class DetailViewController: UIViewController {
         
         guard let countryName = country?.name else { return }
         
+        // 將標題改為小標題
+        navigationItem.largeTitleDisplayMode = .never
+        // 標題名稱為國家名稱
+        navigationItem.title = countryName
+        
         // 國旗ImageView
         flagImageView = UIImageView(image: UIImage(named: countryName))
         flagImageView.translatesAutoresizingMaskIntoConstraints = false

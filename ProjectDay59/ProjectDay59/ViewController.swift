@@ -23,6 +23,9 @@ class ViewController: UITableViewController {
             }
         }
         
+        title = "Countries"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
     
     // 讀取Local的JSON檔案
