@@ -29,6 +29,22 @@ class DetailViewController: UIViewController,
          */
         textInputBox.delegate = self
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteNote))
+        
+    }
+    
+    // 刪除本記事
+    @objc func deleteNote(){
+        if let notesArray = defaults.stringArray(forKey: "notes") {
+            var newArray = notesArray
+            newArray.remove(at: index)
+            
+            // 存入UserDefault中
+            defaults.set(newArray, forKey: "notes")
+        }
+        
+        // 回到上一頁
+        navigationController?.popViewController(animated: true)
     }
         
     // 設定textIntput的預設值

@@ -39,10 +39,8 @@ class ViewController: UITableViewController {
      */
     func checkUserDefaultValue(){
         if let notesArray = defaults.stringArray(forKey: "notes"){
-            print("✅ 發現UserDefault中已經有值，存入notes變數")
             notes = notesArray
         } else {
-            print("⚠️ 發現UserDefault中沒有值，存入[one, two, three]")
             defaults.setValue(["one", "two", "three"], forKey: "notes")
             notes = ["one", "two", "three"]
         }
