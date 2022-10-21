@@ -15,14 +15,22 @@ class ViewController: UITableViewController {
     // 取得UserDefault DB
     let defaults = UserDefaults.standard
     
+    
+    /** 每次進入本頁時，都要檢查是否UserDefault有更新
+     * 如：修改完記事回到本頁，或新增完記事回到本頁時。
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        // 檢查UserDefault中是否有記事資料
+        checkUserDefaultValue()
+        // 重新載入tableView
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 在右上方新增加號按鈕
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newNote))
-        
-        // 檢查UserDefault中是否有記事資料
-        checkUserDefaultValue()
     }
     
     /** 檢查UserDefault中有沒有記事的資料，
@@ -44,6 +52,7 @@ class ViewController: UITableViewController {
     @objc func newNote(){
         // 在storyboard中找到DetailViewController
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.index = notes.count
             navigationController?.pushViewController(vc, animated: true)
         }
     }

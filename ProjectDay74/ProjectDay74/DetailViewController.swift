@@ -34,7 +34,12 @@ class DetailViewController: UIViewController,
     // 設定textIntput的預設值
     func setTextInputValue(){
         if let notesArray = defaults.stringArray(forKey: "notes") {
-            textInputBox.text = notesArray[index]
+            /** 如果index的值就是notesArray的長度，視為新的記事
+             * 否則為先前的記事，將記事內容載入textInputView中
+             */
+            if index < notesArray.count {
+                textInputBox.text = notesArray[index]
+            }
         }
     }
 
@@ -49,7 +54,12 @@ class DetailViewController: UIViewController,
     func save(_ newText: String){
         if let notesArray = defaults.stringArray(forKey: "notes") {
             var newArray = notesArray
-            newArray[index] = newText
+            // 若array內的長度為母頁面傳進來的index，表示此篇記事尚未被存檔過
+            if notesArray.count == index {
+                newArray.append(newText)
+            } else {
+                newArray[index] = newText
+            }
             
             // 存入UserDefault中
             defaults.set(newArray, forKey: "notes")
