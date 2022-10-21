@@ -25,7 +25,6 @@ class ViewController: UITableViewController {
         checkUserDefaultValue()
     }
     
-    
     /** 檢查UserDefault中有沒有記事的資料，
      * 如果沒有，暫時存入["one", "two", "three"]
      * 如果有，將資料從DB中取出，放入notes陣列中。
@@ -40,7 +39,6 @@ class ViewController: UITableViewController {
             notes = ["one", "two", "three"]
         }
     }
-    
     
     // 新增一個新的記事
     @objc func newNote(){
