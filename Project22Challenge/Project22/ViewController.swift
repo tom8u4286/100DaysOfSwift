@@ -17,6 +17,8 @@ class ViewController: UIViewController,
     // 顯示iBeacon的UUID
     @IBOutlet var uuidLabel: UILabel!
     
+    
+    
     var locationManager: CLLocationManager?
     
     //
@@ -53,7 +55,8 @@ class ViewController: UIViewController,
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self){
                 // 檢查這隻手機是否可以判斷iBeacon與手機的距離
                 if CLLocationManager.isRangingAvailable(){
-                    startScanning()
+                    startScanning(uuid: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5", major: 123, minor: 456, name: "iBeacon 1")
+                    startScanning(uuid: "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0", major: 123, minor: 456, name: "iBeacon 2")
                 }
             }
         }
@@ -65,24 +68,14 @@ class ViewController: UIViewController,
      *  2.Majon
      *  3.Minor
      */
-    func startScanning(){
-        let uuid = UUID(uuidString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")!
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: "MyBeacon")
+    func startScanning(uuid: String, major: Int, minor: Int, name: String){
+        let uuid = UUID(uuidString: uuid)!
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: name)
 
         locationManager?.startMonitoring(for: beaconRegion)
         locationManager?.startRangingBeacons(in: beaconRegion)
         
     }
-    
-    func startScanning2(){
-        let uuid = UUID(uuidString: "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0")!
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: "MyBeacon")
-
-        locationManager?.startMonitoring(for: beaconRegion)
-        locationManager?.startRangingBeacons(in: beaconRegion)
-        
-    }
-    
     
     /** 在蘋果的iBeacon架構中，定義出了四種不同的距離
      * 1. unknown  遠於50M
@@ -96,19 +89,15 @@ class ViewController: UIViewController,
             case .far:
                 self.view.backgroundColor = .blue
                 self.distanceReading.text = "FAR"
-            
             case .near:
                 self.view.backgroundColor = .orange
                 self.distanceReading.text = "NEAR"
-                
             case .immediate:
                 self.view.backgroundColor = .red
                 self.distanceReading.text = "RIGHT HERE"
-                
             default:
                 self.view.backgroundColor = .gray
                 self.distanceReading.text = "UNKNOWN"
-                
             }
         }
     }
@@ -117,27 +106,30 @@ class ViewController: UIViewController,
      * App將更新畫面顏色及Label文字
      */
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        
         if let beacon = beacons.first {
-            // beacon被發現，改變我們設計的搜尋狀態為真
-            if !beaconFound {
-                beaconFound = true
-                
-                // 發現iBeacon的Alert提示
-                let ac = UIAlertController(title: "找到iBeacon", message: "發現鄰近的iBeacon", preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .default))
-                present(ac, animated: true)
-            }
-            
-            let uuid = beacon.uuid.uuidString
-            
-            // 更新畫面
+            // 更新畫面背景顏色
             update(distance: beacon.proximity)
-        } else {
-            // beacon被發現，改變我們設計的搜尋狀態為否
-            if beaconFound{
+            
+            // unknown 我們假設視為未找到
+            if beacon.proximity == .unknown {
                 beaconFound = false
+                uuidLabel.text = "UUID"
+            } else {
+                // beacon被發現，改變我們設計的搜尋狀態為真
+                if !beaconFound {
+                    beaconFound = true
+
+                    // 發現iBeacon的Alert提示
+                    let ac = UIAlertController(title: "找到iBeacon", message: "發現鄰近的iBeacon", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                }
+                
+                let uuid = beacon.uuid.uuidString
+                uuidLabel.text = uuid
+                
             }
-            update(distance: .unknown)
         }
     }
 

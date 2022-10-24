@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8T-p3-aST">
-                                <rect key="frame" x="113.66666666666667" y="404.66666666666669" width="162.66666666666663" height="48"/>
+                                <rect key="frame" x="113.66666666666669" y="404.66666666666669" width="163" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,11 +33,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="357.66666666666669" id="QwC-Ib-k7M"/>
-                            <constraint firstItem="j5C-c2-O14" firstAttribute="top" secondItem="L8T-p3-aST" secondAttribute="bottom" constant="31.333333333333314" id="TEM-4u-ake"/>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerX" secondItem="j5C-c2-O14" secondAttribute="centerX" id="cRc-hf-ywj"/>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="113.66666666666669" id="dOM-yf-jm8"/>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jLf-TT-eue"/>
+                            <constraint firstItem="j5C-c2-O14" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0t0-Ya-3AS"/>
+                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YSY-5g-5dw"/>
+                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="i6c-3G-fV0"/>
+                            <constraint firstItem="j5C-c2-O14" firstAttribute="top" secondItem="L8T-p3-aST" secondAttribute="bottom" constant="31.333333333333314" id="yD8-UW-Xae"/>
                         </constraints>
                     </view>
                     <connections>
@@ -47,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="4"/>
+            <point key="canvasLocation" x="136.92307692307691" y="3.5545023696682461"/>
         </scene>
     </scenes>
     <resources>
