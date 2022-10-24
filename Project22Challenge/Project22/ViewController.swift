@@ -11,17 +11,10 @@ import UIKit
 class ViewController: UIViewController,
                     CLLocationManagerDelegate{
 
-    // 顯示iBeacon的距離狀態標籤
-    @IBOutlet var distanceReading: UILabel!
-    
-    // 顯示iBeacon的UUID
-    @IBOutlet var uuidLabel: UILabel!
-    
-    
+    var penguin: UIImageView!
     
     var locationManager: CLLocationManager?
     
-    //
     /** App是否找到beacon。
      * 若狀態為far, near, immediate時，為true。
      * unknown時為false。
@@ -42,6 +35,20 @@ class ViewController: UIViewController,
 //        locationManager?.requestWhenInUseAuthorization()
         
         view.backgroundColor = .gray
+        
+        addPenguin()
+    }
+    
+    // 畫出原形
+    func addPenguin(){
+        penguin = UIImageView(image: UIImage(named:"penguin"))
+        penguin.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(penguin)
+        
+        NSLayoutConstraint.activate([
+            penguin.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            penguin.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor),
+        ])
     }
     
     //
@@ -88,16 +95,20 @@ class ViewController: UIViewController,
             switch distance {
             case .far:
                 self.view.backgroundColor = .blue
-                self.distanceReading.text = "FAR"
+                self.penguin.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//                self.distanceReading.text = "FAR"
             case .near:
                 self.view.backgroundColor = .orange
-                self.distanceReading.text = "NEAR"
+                self.penguin.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+//                self.distanceReading.text = "NEAR"
             case .immediate:
                 self.view.backgroundColor = .red
-                self.distanceReading.text = "RIGHT HERE"
+                self.penguin.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+//                self.distanceReading.text = "RIGHT HERE"
             default:
+                self.penguin.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
                 self.view.backgroundColor = .gray
-                self.distanceReading.text = "UNKNOWN"
+//                self.distanceReading.text = "UNKNOWN"
             }
         }
     }
@@ -110,26 +121,6 @@ class ViewController: UIViewController,
         if let beacon = beacons.first {
             // 更新畫面背景顏色
             update(distance: beacon.proximity)
-            
-            // unknown 我們假設視為未找到
-            if beacon.proximity == .unknown {
-                beaconFound = false
-                uuidLabel.text = "UUID"
-            } else {
-                // beacon被發現，改變我們設計的搜尋狀態為真
-                if !beaconFound {
-                    beaconFound = true
-
-                    // 發現iBeacon的Alert提示
-                    let ac = UIAlertController(title: "找到iBeacon", message: "發現鄰近的iBeacon", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default))
-                    present(ac, animated: true)
-                }
-                
-                let uuid = beacon.uuid.uuidString
-                uuidLabel.text = uuid
-                
-            }
         }
     }
 

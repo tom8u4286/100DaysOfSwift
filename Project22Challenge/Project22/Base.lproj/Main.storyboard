@@ -16,33 +16,9 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8T-p3-aST">
-                                <rect key="frame" x="113.66666666666669" y="404.66666666666669" width="163" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UUID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5C-c2-O14">
-                                <rect key="frame" x="175" y="484" width="40.333333333333343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="j5C-c2-O14" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0t0-Ya-3AS"/>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YSY-5g-5dw"/>
-                            <constraint firstItem="L8T-p3-aST" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="i6c-3G-fV0"/>
-                            <constraint firstItem="j5C-c2-O14" firstAttribute="top" secondItem="L8T-p3-aST" secondAttribute="bottom" constant="31.333333333333314" id="yD8-UW-Xae"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="distanceReading" destination="L8T-p3-aST" id="2ws-zr-gMP"/>
-                        <outlet property="uuidLabel" destination="j5C-c2-O14" id="FV0-Yt-SVb"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
