@@ -120,4 +120,38 @@ class GameScene: SKScene,
             score += 1
         }
     }
+    
+    /** 當User觸碰螢幕時觸發此function
+     * 注意！touchesMoved與touchesBegin不同！
+     */
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        // 取得這個touch在本GameScene的觸碰的位置
+        var location = touch.location(in: self)
+        
+        // 設計玩家不可以低於ScoreLabel，以及最上方100點
+        if location.y < 100 {
+            location.y = 100
+        } else if location.y > 668 {
+            location.y = 668
+        }
+        
+        // 將玩家的飛船移動到觸碰的位置
+        player.position = location
+    }
+    
+    /** 由於self是SKPhysicsContactDelegate，
+     * 碰撞發生時會觸發本function。
+     */
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let explosion = SKEmitterNode(fileNamed: "explosion") else { return }
+        explosion.position = player.position
+        addChild(explosion)
+        
+        // 移除玩家的飛船
+        player.removeFromParent()
+        
+        // 遊戲結束
+        isGameOver = true
+    }
 }
