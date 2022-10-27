@@ -132,15 +132,6 @@ class GameScene: SKScene {
         addChild(node)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
     // 將點選到的煙火改為白色
     func checkTouches(_ touches: Set<UITouch>){
         guard let touch = touches.first else { return }
@@ -163,10 +154,56 @@ class GameScene: SKScene {
              * 檢查他的顏色是否與現在點選的一樣。
              * 如果不一樣，
              * 要將他們的顏色都改回來，並且取消"selected"的狀態，名稱改回"firework"。
+             *
+             * 此處我們稱呼為parent是因為當時設計一個煙火時，
+             * 是由一個SKSpriteNode與SKEmitter所組成一個SKNode。
              */
+            for parent in fireworks {
+                // 確認煙火SKSpriteNode存在
+                guard let firework = parent.children.first as? SKSpriteNode else { continue }
+                
+                if firework.name == "selected" && firework.color != node.color {
+                    firework.name = "firework"
+                    firework.colorBlendFactor = 1
+                }
+            }
             
             node.name = "selected"
             node.colorBlendFactor = 0
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        checkTouches(touches)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        checkTouches(touches)
+    }
+    
+    
+    // 每個frame檢查是否需要將firework從遊戲中移除
+    override func update(_ currentTime: TimeInterval) {
+        /** 此種寫法導致在fireworks還沒被產生前，
+         * fireworks[0] 會 index out of range。
+         */
+//        guard let y = fireworks[0].children.first?.position.y , y > 900 else { return }
+        
+        /** 此處應注意，
+         * 要將元素從array中刪除時，
+         * 應從array的尾端逐一移除，而非前端。
+         * 原因是，從前端移除時，後一元素會往前遞補。
+         * 詳見教材:
+         * https://www.hackingwithswift.com/read/20/3/swipe-to-select
+         */
+        for (index, node) in fireworks.enumerated().reversed(){
+            // 確認煙火位置已經高於900
+            if node.position.y > 900 {
+                fireworks.remove(at: index)
+                node.removeFromParent()
+            }
         }
     }
     
