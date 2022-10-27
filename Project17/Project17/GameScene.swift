@@ -43,7 +43,7 @@ class GameScene: SKScene,
         // 設定碰撞的Delegate為自己，碰撞發生時通知self
         physicsWorld.contactDelegate = self
         
-        // 設定Timer，固定時間會有新增太空垃圾
+        // 設定Timer，固定時間會新增太空垃圾
         gameTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
     }
     
