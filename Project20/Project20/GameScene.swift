@@ -33,7 +33,6 @@ class GameScene: SKScene {
         
         // 每六秒發射一次火箭
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFirework), userInfo: nil, repeats: true)
-        
     }
     
     // 設定背景圖片
@@ -82,7 +81,6 @@ class GameScene: SKScene {
         default:
             break
         }
-           
     }
     
     /** Create一個移動的煙火。
@@ -130,6 +128,50 @@ class GameScene: SKScene {
         // 7.將本煙火node放入Array中，並加入Scene
         fireworks.append(node)
         addChild(node)
+    }
+    
+    // 設計單一煙火的爆炸動畫
+    func explode(firework: SKNode){
+        //
+        if let emitter = SKEmitterNode(fileNamed: "explode"){
+            emitter.position = firework.position
+            addChild(emitter)
+        }
+        // 煙火從畫面中移除
+        firework.removeFromParent()
+    }
+    
+    // 使多個煙火爆炸
+    func explodeFireworks(){
+        var numExploded = 0
+        
+        for (index, fireworkContainer) in fireworks.enumerated().reversed(){
+            guard let firework = fireworkContainer.children.first as? SKSpriteNode else { continue }
+            
+            if firework.name == "selected" {
+                explode(firework: fireworkContainer)
+                fireworks.remove(at: index)
+                numExploded += 1
+            }
+        }
+        
+        // 設計本次爆炸應得的分數
+        switch numExploded{
+        case 0:
+            break
+        case 1:
+            score += 200
+        case 2:
+            score += 500
+        case 3:
+            score += 1500
+        case 4:
+            score += 2500
+        default:
+            score += 4000
+        }
+        
+        
     }
     
     // 將點選到的煙火改為白色
