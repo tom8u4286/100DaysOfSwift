@@ -71,6 +71,10 @@ class GameScene: SKScene {
     var chainDelay = 3.0
     //
     var nextSequenceQueued = true
+    
+    
+    var isGameEnded = false
+    
 
     override func didMove(to view: SKView) {
         // 設定背景圖片
@@ -175,6 +179,8 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isGameEnded == false else { return }
+        
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         activeSlicePoints.append(location)
@@ -182,9 +188,100 @@ class GameScene: SKScene {
         // 重新繪製路徑
         redrawActiveSlice()
         
+        // 如果目前沒有在播放炸彈音效，播放炸彈音效
         if !isSwooshSoundActive{
             playSwooshSound()
         }
+        
+        // 取得所有在路徑上的node
+        let nodesAtPoint = nodes(at: location)
+        
+        for case let node as SKSpriteNode in nodesAtPoint{
+            
+            // 碰到的是企鵝，執行消除企鵝
+            if node.name == "enemy"{
+                // 在觸碰到企鵝的點，顯示sliceHitEnemy動畫
+                if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy"){
+                    emitter.position = node.position
+                    addChild(emitter)
+                }
+                
+                // 移除這個node的名稱，這個node就不可以再被劃第二次
+                node.name = ""
+                // 設定企鵝不可因碰撞移動
+                node.physicsBody?.isDynamic = false
+                
+                // 企鵝執行消失動畫
+                let scaleOut = SKAction.scale(to: 0.001, duration: 0.2)
+                let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+                let group = SKAction.sequence([scaleOut, fadeOut])
+                let seq = SKAction.sequence([group, .removeFromParent()])
+                node.run(seq)
+                
+                // 得分
+                score += 1
+                
+                if let index = activeEnemies.firstIndex(of: node){
+                    activeEnemies.remove(at: index)
+                }
+                
+                run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
+               
+            // 觸碰到的事炸彈，引爆炸彈
+            } else if node.name == "bomb" {
+               
+                guard let bombContainer = node.parent as? SKSpriteNode else { continue }
+                
+                // 在觸碰到炸彈的點，顯示sliceHitBomb動畫
+                if let emitter = SKEmitterNode(fileNamed: "sliceHitBomb"){
+                    emitter.position = bombContainer.position
+                    addChild(emitter)
+                }
+                
+                // 移除這個node的名稱，這個node就不可以再被劃第二次
+                node.name = ""
+                //
+                bombContainer.physicsBody?.isDynamic = false
+                
+                // 執行縮小消失動畫
+                let scaleOut = SKAction.scale(to: 0.001, duration: 0.2)
+                let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+                let group = SKAction.sequence([scaleOut, fadeOut])
+                let seq = SKAction.sequence([group, .removeFromParent()])
+                
+                bombContainer.run(seq)
+                
+                // 將炸彈從activeEnemies移除
+                if let index = activeEnemies.firstIndex(of: bombContainer){
+                    activeEnemies.remove(at: index)
+                }
+                
+                // 播放音效
+                run(SKAction.playSoundFileNamed("explosion.caf", waitForCompletion: false))
+                // 劃到炸彈，遊戲結束
+                endGame(triggeredByBomb: true)
+                
+            }
+        }
+    }
+    
+    func endGame(triggeredByBomb: Bool){
+        // 確認遊戲尚未被設定為結束
+        guard isGameEnded == false else { return }
+        isGameEnded = true
+        physicsWorld.speed = 0
+        isUserInteractionEnabled = false
+        
+        bombSoundEffect?.stop()
+        bombSoundEffect = nil
+        
+        // 若是畫到炸彈導致遊戲結束，將叉叉全部改為紅叉叉
+        if triggeredByBomb {
+            livesImages[0].texture = SKTexture(imageNamed: "sliceLifeGone")
+            livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
+            livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
+        }
+        
     }
     
     // 播放畫刀音效
@@ -313,6 +410,34 @@ class GameScene: SKScene {
         activeEnemies.append(enemy)
     }
     
+    func subtractLife(){
+        lives -= 1
+        
+        run(SKAction.playSoundFileNamed("wrong.caf", waitForCompletion: false))
+        
+        var life: SKSpriteNode
+        
+        // 本次減命後，剩下兩命
+        if lives == 2 {
+            life = livesImages[0]
+        // 本次減命後，剩下一命
+        } else if lives == 1 {
+            life = livesImages[1]
+        // 本次減命後，沒命了
+        } else {
+            life = livesImages[2]
+            endGame(triggeredByBomb: false)
+        }
+        // 設定為減命圖片(紅叉叉)
+        life.texture = SKTexture(imageNamed: "sliceLifeGone")
+        
+        // 設計一個叉叉的動畫，讓減命的行為比較明顯
+        life.xScale = 1.3
+        life.yScale = 1.3
+        life.run(SKAction.scale(to: 1, duration: 0.1))
+        
+    }
+    
     // update會在每一個frame更新時被呼叫
     // 檢查是否仍有炸彈在畫面中，如果沒有，停止音效的播放。
     override func update(_ currentTime: TimeInterval) {
@@ -320,8 +445,20 @@ class GameScene: SKScene {
         if activeEnemies.count > 0 {
             // 移除node應從array的後端移除
             for (index, node) in activeEnemies.enumerated().reversed() {
-                if node.position.y < -140{
+                if node.position.y < -140 {
                     node.removeFromParent()
+                    
+                    // 如果沒有劃到企鵝，少一命
+                    if node.name == "enemy" {
+                        node.name = ""
+                        subtractLife()
+                    
+                    // 如果沒有畫到炸彈，將炸彈移除
+                    } else if node.name == "bombContainer" {
+                        node.name = ""
+                        node.removeFromParent()
+                    }
+                    
                     activeEnemies.remove(at: index)
                 }
             }
@@ -353,6 +490,8 @@ class GameScene: SKScene {
     }
     
     func tossEnemies() {
+        guard isGameEnded == false else { return }
+        
         popupTime *= 0.991
         chainDelay *= 0.99
         physicsWorld.speed *= 1.02
