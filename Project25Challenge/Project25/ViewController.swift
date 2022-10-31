@@ -28,12 +28,39 @@ class ViewController: UICollectionViewController,
         
         title = "Selfie Share"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "Connection", style: .plain, target: self, action: #selector(sendText)),
+            UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        ]
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
         
         peerID = MCPeerID(displayName: UIDevice.current.name)
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession.delegate = self
+        
+    }
+    
+    // 送出文字
+    @objc func sendText(){
+        let ac = UIAlertController(title: "輸入傳送文字", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "OK", style: .default){ [weak self] _ in
+            guard let text = ac.textFields?[0].text else { return }
+            guard let mcSession = self?.mcSession else { return }
+            
+            let data = Data(text.utf8)
+            do{
+                try mcSession.send(data, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch {
+                // 若傳送發生問題，彈出Alert
+                let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(ac, animated: true)
+            }
+        })
+        self.present(ac, animated: true)
         
     }
     
@@ -146,7 +173,7 @@ class ViewController: UICollectionViewController,
         case .connecting:
             print("Connecting: \(peerID.displayName)")
         case .notConnected:
-            print("⛔️ Not Connected: \(peerID.displayName)")
+            print("Not Connected: \(peerID.displayName)")
             DispatchQueue.main.async {[weak self] in
                 self?.present(ac, animated: true)
             }
@@ -162,6 +189,11 @@ class ViewController: UICollectionViewController,
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+            } else{
+                let text = String(decoding: data, as: UTF8.self)
+                let ac = UIAlertController(title: "接收到訊息", message: "\(text)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(ac, animated: true)
             }
         }
     }
