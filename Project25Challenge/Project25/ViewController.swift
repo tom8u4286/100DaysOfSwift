@@ -46,12 +46,12 @@ class ViewController: UICollectionViewController,
     }
     
     @objc func startHosting(action: UIAlertAction){
-        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws", discoveryInfo: nil, session: mcSession)
+        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws-project25", discoveryInfo: nil, session: mcSession)
         mcAdvertiserAssistant.start()
     }
     
     @objc func joinSession(action: UIAlertAction){
-        let mcBrowser = MCBrowserViewController(serviceType: "hws", session: mcSession)
+        let mcBrowser = MCBrowserViewController(serviceType: "hws-project25", session: mcSession)
         mcBrowser.delegate = self
         present(mcBrowser, animated: true)
     }
@@ -137,13 +137,19 @@ class ViewController: UICollectionViewController,
 
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        let ac = UIAlertController(title: "斷線", message: "\(peerID.displayName)已斷線", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
         switch state{
         case .connected:
             print("Connected: \(peerID.displayName)")
         case .connecting:
             print("Connecting: \(peerID.displayName)")
         case .notConnected:
-            print("Not Connected: \(peerID.displayName)")
+            print("⛔️ Not Connected: \(peerID.displayName)")
+            DispatchQueue.main.async {[weak self] in
+                self?.present(ac, animated: true)
+            }
         default:
             print("Unknown state received: \(peerID.displayName)")
         }
