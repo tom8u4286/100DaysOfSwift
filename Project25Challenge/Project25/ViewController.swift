@@ -31,15 +31,26 @@ class ViewController: UICollectionViewController,
         
         
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "Connection", style: .plain, target: self, action: #selector(sendText)),
+            UIBarButtonItem(title: "Connection", style: .plain, target: self, action: #selector(showConnectedDevice)),
             UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
         ]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(sendText)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt)),
+        ]
         
         peerID = MCPeerID(displayName: UIDevice.current.name)
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession.delegate = self
         
+    }
+    
+    // 顯示連線中裝置
+    @objc func showConnectedDevice(){
+        let array = mcSession.connectedPeers.map({$0.displayName})
+        let ac = UIAlertController(title: "連線中裝置", message: "\(array.joined(separator: "\n"))", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(ac, animated: true)
     }
     
     // 送出文字
