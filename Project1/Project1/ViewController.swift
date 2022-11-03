@@ -9,13 +9,14 @@ import UIKit
 
 class ViewController: UITableViewController {
     
+    // 存放圖片檔名
     var pictures = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         title = "Storm Viewer"
+        // 使用大標題
         navigationController?.navigationBar.prefersLargeTitles = true
         
         // 以FileManager 取出App中的檔案名稱
@@ -29,7 +30,6 @@ class ViewController: UITableViewController {
             }
         }
         
-        print(pictures)
     }
 
     // numberOfRowsInSection 一個Section有多少Cell

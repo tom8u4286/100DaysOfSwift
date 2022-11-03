@@ -9,15 +9,16 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    
     @IBOutlet var imageView: UIImageView!
     
+    // 在DetailViewController被init時，由母頁面設定圖片的檔案名稱
     var selectedImage: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = selectedImage
+        // 使用小標題
         navigationItem.largeTitleDisplayMode = .never
         
         if let imageToLoad = selectedImage {
@@ -27,6 +28,7 @@ class DetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // 點擊畫面時，將隱藏navigation bar
         navigationController?.hidesBarsOnTap = true
     }
     

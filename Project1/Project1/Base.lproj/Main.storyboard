@@ -45,7 +45,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Twt-Mb-jrl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="27.72511848341232"/>
+            <point key="canvasLocation" x="1232" y="28"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="7oL-8h-CT0">
@@ -56,14 +56,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U5n-PY-VZu">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="750"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dJw-rd-3Iq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="U5n-PY-VZu" firstAttribute="top" secondItem="15p-ul-fiI" secondAttribute="topMargin" constant="-47" id="8oS-F3-gpQ"/>
-                            <constraint firstItem="U5n-PY-VZu" firstAttribute="leading" secondItem="dJw-rd-3Iq" secondAttribute="leading" id="UBV-e0-YBs"/>
+                            <constraint firstItem="U5n-PY-VZu" firstAttribute="top" secondItem="15p-ul-fiI" secondAttribute="topMargin" id="8oS-F3-gpQ"/>
+                            <constraint firstItem="U5n-PY-VZu" firstAttribute="leading" secondItem="15p-ul-fiI" secondAttribute="leading" id="UBV-e0-YBs"/>
                             <constraint firstItem="U5n-PY-VZu" firstAttribute="centerX" secondItem="15p-ul-fiI" secondAttribute="centerX" id="kXe-oj-H37"/>
                             <constraint firstItem="U5n-PY-VZu" firstAttribute="centerY" secondItem="15p-ul-fiI" secondAttribute="centerY" id="wxc-KI-AfZ"/>
                         </constraints>
@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T8u-zh-1cW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2301.5384615384614" y="36.96682464454976"/>
+            <point key="canvasLocation" x="1911" y="28"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yiN-Fr-lay">
