@@ -13,7 +13,6 @@ class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -28,8 +27,6 @@ class ViewController: UITableViewController {
                 pictures.append(item)
             }
         }
-        
-        print(pictures)
     }
 
     // numberOfRowsInSection 一個Section有多少Cell

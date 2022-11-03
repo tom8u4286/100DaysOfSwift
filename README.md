@@ -15,3 +15,37 @@
 4. 使用shuffle()，讓各題的選項皆不同(如：第一題為US、Japan、UK，第二題為Spain、Franch、Russian)
 5. 使用AlertController，提示玩家答對或答錯
 
+## Project3 Storm Viewer圖片存入手機相簿
+1. 使用rightBarButtonItem，設定ActionButton
+2. 設定Button點選後要觸發的function，以@objc設定funcion
+
+## Project4
+1. 
+2. 
+
+## Project5
+## Project6
+## Project7
+## Project8
+## Project9
+## Project10
+## Project11
+## Project12
+## Project13
+## Project14
+## Project15
+## Project16
+## Project17
+## Project18
+## Project19
+## Project20
+## Project21
+## Project22
+## Project23
+## Project24
+## Project25
+## Project26
+## Project27
+## Project28
+## Project29
+## Project30

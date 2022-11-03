@@ -48,6 +48,9 @@ class DetailViewController: UIViewController {
             return
         }
         
+        /** 顯示iOS的ActivityViewController，會從下方彈出。
+         *
+         */
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
         
         /** popoverPresentationController是為了iPad而設計，
