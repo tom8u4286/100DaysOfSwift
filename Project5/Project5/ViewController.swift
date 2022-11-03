@@ -9,14 +9,18 @@ import UIKit
 
 class ViewController: UITableViewController {
     
+    // 題目文字
     var allWords = [String]()
+    // 已經被User加入過的單字
     var usedWords = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 右上方加號按鈕，讓User加入新答案
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
         
+        // 從Bundle中載入題目
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt"){
             if let startWords = try? String(contentsOf: startWordsURL){
                 allWords = startWords.components(separatedBy:"\n")
@@ -27,11 +31,14 @@ class ViewController: UITableViewController {
             allWords = ["silkworm"]
         }
         
+        // 開始遊戲
         startGame()
     }
     
     func startGame(){
-        // title為ViewController的標題
+        /** title為ViewController的標題
+         * 我們將title設定為題目單字。
+         */
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
@@ -47,13 +54,22 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    @objc
-    func promptForAnswer(){
+    
+    /** User點選加號後，在AlertController中加入文字輸入欄，
+     * 以供User填寫答案。
+     */
+    @objc func promptForAnswer(){
         let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
         ac.addTextField()
 
-        let submitAction = UIAlertAction(title:"Submit", style: .default){
-            [weak self, weak ac] _ in
+        /** 此處closure中的self以weak的方式傳入，
+         * 原因在於，若這個ViewController在這個closure執行前就死了，
+         * 會導致iOS認為有人在參考這個ViewController(self)，
+         * 而不會釋放ViewController的記憶體空間，
+         * 導致reference cycle問題。
+         * 因此要用weak，才不會新增ViewController的reference count。
+         */
+        let submitAction = UIAlertAction(title:"Submit", style: .default){ [weak self, weak ac] _ in
             guard let answer = ac?.textFields?[0].text else { return }
             self?.submit(answer)
         }
@@ -62,6 +78,9 @@ class ViewController: UITableViewController {
         present(ac, animated: true)
     }
     
+    /** User提交答案後，對這個答案進行檢驗，
+     * 判定是否是一個正確答案。
+     */
     func submit(_ answer: String){
         let lowerAnswer = answer.lowercased()
 
@@ -102,6 +121,7 @@ class ViewController: UITableViewController {
         guard var tempWord = title?.lowercased() else {return false}
 
         for letter in word {
+            // 取得array中第一個符合條件的位置(index)
             if let position = tempWord.firstIndex(of: letter){
                 tempWord.remove(at: position)
             } else {
@@ -109,7 +129,7 @@ class ViewController: UITableViewController {
                 return false
             }
         }
-        // 如果
+        // 如果可以被標題文字組成，回傳true
         return true
     }
 
@@ -132,10 +152,6 @@ class ViewController: UITableViewController {
 
         return misspelledRange.location == NSNotFound
     }
-    
-    
-    
-    
 }
 
 
