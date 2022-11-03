@@ -31,7 +31,11 @@
 5. insertRow(at)在TableView中的特定位置，加入新的Cell。
 6. 使用UITextChecker檢查文字是否為一真實單字
 
-## Project6
+## Project6 以VFL設定AutoLayout
+1. 利用AutoLayout統一頁面中按鈕的大小，並調整長寬比例
+2. 利用Visual Format Language (VFL)設定AutoLayout
+3. 利用Anchor設定AutoLayout
+
 ## Project7
 ## Project8
 ## Project9
