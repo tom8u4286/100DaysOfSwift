@@ -36,7 +36,13 @@
 2. 利用Visual Format Language (VFL)設定AutoLayout
 3. 利用Anchor設定AutoLayout
 
-## Project7
+## Project7 白宮請願API調用
+1. 在storyboard中，NavigationController內設計UITabBarController
+2. 利用URL()調用網路API的資料，並用Data(contentsOf:)擷取 
+3. 設計請願petition，並遵循Codable protocol
+4. 以JSONDecoder將API截取的資料轉換成Codable結構
+5. 以webView.loadHTMLString呈現HTML的源碼
+
 ## Project8
 ## Project9
 ## Project10

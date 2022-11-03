@@ -11,6 +11,7 @@ import WebKit
 
 class DetailViewController: UIViewController {
     var webView: WKWebView!
+    // 在母頁面產生DetailView時，
     var detailItem: Petition?
 
     override func loadView(){
