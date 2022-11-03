@@ -22,14 +22,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 可能的國家
         countries += ["estonia","france","germany","ireland",
         "italy","monaco","nigeria","estonia","poland","russia",
         "spain","uk","us"]
         
+        // 設定國旗圖片的邊框
         setBorder()
         
+        // 拋出題目(遊戲開始)
         askQuestion()
-        
     }
     
     
@@ -42,7 +44,6 @@ class ViewController: UIViewController {
         button1.layer.borderColor = UIColor.lightGray.cgColor
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
-        
     }
     
     
@@ -62,9 +63,13 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
+        // 設定國家名稱作為標題，為本題題目
         title = countries[correctAnswer]
     }
 
+    /** 玩家點選國旗後，顯示Alert提示是否答對，
+     * 並顯示目前玩家得分。
+     */
     @IBAction func buttonTapped(_ sender: UIButton) {
         var alertTitle: String
         
