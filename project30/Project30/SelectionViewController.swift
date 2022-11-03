@@ -10,7 +10,18 @@ import UIKit
 
 class SelectionViewController: UITableViewController {
 	var items = [String]() // this is the array that will store the filenames to load
-	var viewControllers = [UIViewController]() // create a cache of the detail view controllers for faster loading
+    
+    /** 此「將viewController加入Array」的寫法，
+     * 可能導致User離開該DetailView之後，viewController並沒有被清除記憶體。
+     * 雖然下次進入此viewController時，可能會加速進入頁面，
+     * 但長久使用後，可能導致out of memory。
+     *
+     * 教材原文：
+     * https://www.hackingwithswift.com/read/30/6/fixing-the-bugs-running-out-of-memory
+     */
+//	var viewControllers = [UIViewController]() // create a cache of the detail view controllers for faster loading
+    
+    
 	var dirty = false
 
     override func viewDidLoad() {
@@ -96,8 +107,17 @@ class SelectionViewController: UITableViewController {
 		// mark us as not needing a counter reload when we return
 		dirty = false
 
+        
+        /** 此「將viewController加入Array」的寫法，
+         * 可能導致User離開該DetailView之後，viewController並沒有被清除記憶體。
+         * 雖然下次進入此viewController時，可能會加速進入頁面，
+         * 但長久使用後，可能導致out of memory。
+         *
+         * 教材原文：
+         * https://www.hackingwithswift.com/read/30/6/fixing-the-bugs-running-out-of-memory
+         */
 		// add to our view controller cache and show
-		viewControllers.append(vc)
+//		viewControllers.append(vc)
 		navigationController!.pushViewController(vc, animated: true)
 	}
 }
