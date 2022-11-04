@@ -9,10 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // 左側提示文字Label
     var cluesLabel: UILabel!
+    // 右側答案Label
     var answersLabel: UILabel!
     // 當前User點選的按鈕組合(如點了HA與UNT：HAUNT)
     var currentAnswer: UITextField!
+    // 得分Label
     var scoreLabel: UILabel!
     // 字母片段按鈕陣列
     var letterButtons = [UIButton]()
@@ -20,6 +23,7 @@ class ViewController: UIViewController {
     // 所有被User點選到的答案片段按鈕(如: HA)
     var activatedButtons = [UIButton]()
     
+    // 解答，存放所有答案單字
     var solutions = [String]()
     
     // User當前的得分
@@ -36,21 +40,36 @@ class ViewController: UIViewController {
         view = UIView()
         view.backgroundColor = .white
         
-        //
+        // 右上角的得分Label
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.textAlignment = .right
         scoreLabel.text = "分數: 0"
         view.addSubview(scoreLabel)
         
+        /** 左上測題目區，將顯示該單字的提示。
+         *  如：Ghost in residents.
+         */
         cluesLabel = UILabel()
         cluesLabel.translatesAutoresizingMaskIntoConstraints = false
         cluesLabel.font = UIFont.systemFont(ofSize: 24)
         cluesLabel.text = "CLUES"
         cluesLabel.numberOfLines = 0
+        /** 設定setContentHuggingPriority時，
+         * 優先級越高時，元件越不容易被拉長。
+         * 最高優先級為1000。
+         *
+         * 另有compressionResistancePriority可以設定被縮小的容易度。
+         * 可參考教材
+         * https://www.hackingwithswift.com/read/8/2/building-a-uikit-user-interface-programmatically
+         */
         cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(cluesLabel)
         
+        /** 左上方，答案欄位
+         *  在User回答正確前，會提示該答案有幾個字母。
+         *  如：6 Letters
+         */
         answersLabel = UILabel()
         answersLabel.translatesAutoresizingMaskIntoConstraints = false
         answersLabel.font = UIFont.systemFont(ofSize: 24)
@@ -60,6 +79,8 @@ class ViewController: UIViewController {
         answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(answersLabel)
         
+        /** 顯示User目前選擇答案的文字欄
+         */
         currentAnswer = UITextField()
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
         currentAnswer.placeholder = "Tap the letters to guess"
@@ -68,14 +89,17 @@ class ViewController: UIViewController {
         currentAnswer.isUserInteractionEnabled = false
         view.addSubview(currentAnswer)
         
+        /** 提交答案的按鈕
+         */
         let submit = UIButton(type: .system)
         submit.translatesAutoresizingMaskIntoConstraints = false
         submit.setTitle("SUBMIT", for: .normal)
         // 設定submit按鈕要執行的function
         submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
-        
         view.addSubview(submit)
         
+        /** 讓User清除作答的按鈕
+         */
         let clear = UIButton(type: .system)
         clear.translatesAutoresizingMaskIntoConstraints = false
         clear.setTitle("Clear", for: .normal)
@@ -83,45 +107,14 @@ class ViewController: UIViewController {
         clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
         view.addSubview(clear)
         
+        
+        /** 設計單次片段選擇按鈕區。
+         * 本區會將level1.txt的內容拆解，將單字片段以按鈕呈現在本區域內。
+         *
+         */
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
-        
-        
-        
-        NSLayoutConstraint.activate([
-            scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            
-            cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
-            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
-            
-            answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
-            answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
-            
-            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
-            
-            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
-            
-            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
-            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
-            submit.heightAnchor.constraint(equalToConstant: 44),
-            
-            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-            clear.heightAnchor.constraint(equalToConstant: 44),
-            
-            buttonsView.widthAnchor.constraint(equalToConstant: 750),
-            buttonsView.heightAnchor.constraint(equalToConstant: 320),
-            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
-            
-        ])
         
         let width = 150
         let height = 80
@@ -148,11 +141,47 @@ class ViewController: UIViewController {
             }
         }
         
+        
+        /** 在程式中設計AutoLayout(不使用storyboard IB)。
+         */
+        NSLayoutConstraint.activate([
+            scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            
+            cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
+            
+            answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
+            answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
+            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
+            
+            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
+            
+            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
+            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
+            submit.heightAnchor.constraint(equalToConstant: 44),
+            
+            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
+            clear.heightAnchor.constraint(equalToConstant: 44),
+            
+            buttonsView.widthAnchor.constraint(equalToConstant: 750),
+            buttonsView.heightAnchor.constraint(equalToConstant: 320),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor),
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+            
+        ])
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // 載入遊戲內容
         loadLevel()
     }
     
@@ -202,9 +231,11 @@ class ViewController: UIViewController {
         }
     }
     
+    // 遊戲結束，提升遊戲難度
     func levelUp(action: UIAlertAction){
         level += 1
         
+        // 移除所有
         solutions.removeAll(keepingCapacity: true)
         loadLevel()
         

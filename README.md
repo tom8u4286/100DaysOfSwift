@@ -43,7 +43,12 @@
 4. 以JSONDecoder將API截取的資料轉換成Codable結構
 5. 以webView.loadHTMLString呈現HTML的源碼
 
-## Project8
+## Project8 Swifty Words iPad文字拼湊遊戲
+1. 程式設定Layout Contraints
+2. 設定Label的TextAlignment
+3. 設定元件的ContentHuggingProiority，調整元件被拉長的容易度
+4. 載入Bundle中的文字檔，並以符號拆解字串
+
 ## Project9
 ## Project10
 ## Project11
