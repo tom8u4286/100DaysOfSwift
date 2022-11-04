@@ -24,7 +24,6 @@ class GameScene: SKScene,
         }
     }
     
-    
     // 設計一個讓User可以點選，點選後可以編輯遊戲的按鈕
     var editLabel: SKLabelNode!
     // 遊戲是否正處於編輯模式
@@ -68,7 +67,6 @@ class GameScene: SKScene,
         editLabel.position = CGPoint(x: 80, y: 700)
         addChild(editLabel)
         
-        
         // 設計整個頁面為一個PhysicsBody
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -82,12 +80,12 @@ class GameScene: SKScene,
         makeSlot(at: CGPoint(x: 640, y: 0), isGood: true)
         makeSlot(at: CGPoint(x: 896, y: 0), isGood: false)
         
+        // 設定slot中間的反彈物件(彩色半圓形)
         makeBouncer(at: CGPoint(x: 0, y: 0))
         makeBouncer(at: CGPoint(x: 256, y: 0))
         makeBouncer(at: CGPoint(x: 512, y: 0))
         makeBouncer(at: CGPoint(x: 768, y: 0))
         makeBouncer(at: CGPoint(x: 1024, y: 0))
-        
         
     }
     
@@ -121,7 +119,13 @@ class GameScene: SKScene,
                 rect.position = location
                 // 設定實體
                 rect.physicsBody = SKPhysicsBody(rectangleOf: size)
-                // 設定此rect不會移動
+                
+                /** 設定此rect不會移動
+                 * 設定isDynamic時，讓physicsBody可有重力加速度與碰撞加速度。
+                 *
+                 * 教材原文：
+                 * https://www.hackingwithswift.com/read/11/3/bouncing-balls-circleofradius
+                 */
                 rect.physicsBody?.isDynamic = false
                 // 加入此rect
                 addChild(rect)

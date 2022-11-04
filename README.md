@@ -61,7 +61,12 @@
 7. 建立繼承NSObject的Person類別，存放圖片與User輸入的名稱
 8. CALayer設定元件邊框border與圓角cornerRadius
 
-## Project11
+## Project11 SpriteKit彈珠台iPad小遊戲
+1. 利用SpriteKit建立iPad遊戲
+2. 利用SKSpriteNode、SKPhysicsBody建立可碰撞的實體物件
+3. 設定isDynamic，讓物體有重力加速度與碰撞加速度
+4. 以CGPoint設定障礙物與彈珠物件在遊戲中的位置
+
 ## Project12
 ## Project13
 ## Project14
