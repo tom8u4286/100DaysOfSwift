@@ -49,8 +49,18 @@
 3. 設定元件的ContentHuggingProiority，調整元件被拉長的容易度
 4. 載入Bundle中的文字檔，並以符號拆解字串
 
-## Project9
-## Project10
+## Project9 GCD 背景調用API資料
+
+## Project10 以ImagePicker將相簿內容存放於CollectionView
+1. 利用CollectionViewController設計圖片Layout
+2. 利用ImagePicker取得手機相簿照片
+3. 設定取用相簿權限
+4. 以UUID命名相片元件
+5. 利用FileManager，取得App的documentDirectory路徑，並存放圖片檔案
+6. 設計fatalError，於找不到Cell時觸發
+7. 建立繼承NSObject的Person類別，存放圖片與User輸入的名稱
+8. CALayer設定元件邊框border與圓角cornerRadius
+
 ## Project11
 ## Project12
 ## Project13

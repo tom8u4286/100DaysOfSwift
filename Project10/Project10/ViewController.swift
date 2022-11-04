@@ -14,7 +14,6 @@ class ViewController: UICollectionViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addNewPerson))
     }
@@ -33,13 +32,13 @@ class ViewController: UICollectionViewController,
         present(picker, animated: true)
     }
     
-    // didFinishPickingMediaWithInfo
+    // didFinishPickingMediaWithInfo於User在相片選擇結束後被觸發
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("✅ 相片選擇完畢 didFinishPickingMediaWithInfo被觸發！")
         // 確認info所帶的image資料內容，可以被轉換成UIImage格式
         guard let image = info[.editedImage] as? UIImage else { return }
         
-        // 產生一組隨機的UUID
+        // 產生一組隨機的UUID作為image名稱
         let imageName = UUID().uuidString
         
         /** getDocumentsDirectory將取得app的路徑位置，
@@ -48,12 +47,15 @@ class ViewController: UICollectionViewController,
          */
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
+        // 將圖片的檔案寫入我們設計好的路徑
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
         
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
+        
+        // 重新整理collectionView
         collectionView.reloadData()
         
         /** 此處的dimiss沒有說明被dismiss的controller
@@ -77,6 +79,7 @@ class ViewController: UICollectionViewController,
         // 新增取消
         ac.addAction(UIAlertAction(title: "取消", style: .default))
         
+        // 新增確認，並將TextField中User填寫的文字存入person物件中
         ac.addAction(UIAlertAction(title: "確認", style: .default){ [weak self, weak ac] _ in
             guard let newName = ac?.textFields?[0].text else { return }
             
@@ -100,7 +103,6 @@ class ViewController: UICollectionViewController,
         print("getDocumentsDirectory: \(path[0])")
         return path[0]
     }
-    
     
     /** 設定本UICollectionView的Cell的數量
      *  關鍵字 numberOfItemsInSection
@@ -137,10 +139,12 @@ class ViewController: UICollectionViewController,
         
         cell.imageView.image = UIImage(contentsOfFile: path.path)
         
+        // 在CALayer中設定元件border與cornerRadius
         cell.imageView.layer.borderColor = UIColor(white: 0.1, alpha: 0.3).cgColor
         cell.imageView.layer.borderWidth = 2
-        cell.imageView.layer.cornerRadius = 3
+        cell.imageView.layer.cornerRadius = 3 // 這是Cell裡面的imageView的cornerRadius
         
+        // 設定cell的cornerRadius
         cell.layer.cornerRadius = 7
 
         return cell
