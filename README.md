@@ -120,7 +120,15 @@
 3. Xcode的breakpoint與條件設定
 
 ## Project19
-## Project20
+
+## Project20 Fireworks Night煙火小遊戲
+1. 利用SpriteKit創建小遊戲
+2. 利用Timer.scheduledTimer定時發送煙火 
+3. 利用UIBezierPath設計路徑，讓煙火遵循路徑移動
+4. 利用Array的enumerated()與.reversed()，將元素逐一從array中移除
+5. touchesBegan與touchesMoved中設計判斷觸碰到的煙火
+6. 煙火離開畫面後，將其從Scene中移除，降低記憶體負擔
+
 ## Project21
 ## Project22
 ## Project23

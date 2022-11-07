@@ -132,7 +132,6 @@ class GameScene: SKScene {
     
     // 設計單一煙火的爆炸動畫
     func explode(firework: SKNode){
-        //
         if let emitter = SKEmitterNode(fileNamed: "explode"){
             emitter.position = firework.position
             addChild(emitter)
@@ -224,7 +223,6 @@ class GameScene: SKScene {
         super.touchesMoved(touches, with: event)
         checkTouches(touches)
     }
-    
     
     // 每個frame檢查是否需要將firework從遊戲中移除
     override func update(_ currentTime: TimeInterval) {
