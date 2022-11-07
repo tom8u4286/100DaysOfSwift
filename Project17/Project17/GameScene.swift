@@ -8,21 +8,25 @@
 import SpriteKit
 
 class GameScene: SKScene,
-                SKPhysicsContactDelegate {
-    
+                SKPhysicsContactDelegate // 可接收Scene中物體碰撞事件
+{
     // 星空背景
     var starfield: SKEmitterNode!
+    
     // 玩家
     var player: SKSpriteNode!
+    
     // 得分標籤
     var scoreLabel: SKLabelNode!
     
     // 遊戲中可能的太空物品
     var possibleEnemies = ["ball", "hammer", "tv"]
+    
+    // 設計可定期送出特空垃圾的timer
     var gameTimer: Timer?
+    
     // 遊戲是否已結束
     var isGameOver = false
-    
     
     // 得分
     var score = 0 {
@@ -31,11 +35,15 @@ class GameScene: SKScene,
         }
     }
     
+    // SKScene的起始(類似UIKit的ViewDidLoad)
     override func didMove(to view: SKView) {
+        // 設定星空背景
         initStarfield()
         
+        // 設定玩家的飛船
         initPlayer()
         
+        // 設定得分標籤
         initScoreLabel()
         
         // 設定無重力，physics物體才不會向下掉
@@ -144,11 +152,12 @@ class GameScene: SKScene,
      * 碰撞發生時會觸發本function。
      */
     func didBegin(_ contact: SKPhysicsContact) {
+        // 設計在碰撞的地方，顯示爆炸動畫
         guard let explosion = SKEmitterNode(fileNamed: "explosion") else { return }
         explosion.position = player.position
         addChild(explosion)
         
-        // 移除玩家的飛船
+        // 從Scene中移除玩家的飛船
         player.removeFromParent()
         
         // 遊戲結束

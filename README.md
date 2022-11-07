@@ -88,7 +88,7 @@
 7. 使用SKAction.sequence設計序列動畫
 8. 使用SKAction.playSoundFileNamed播放打擊音效
 
-## Project15 動畫
+## Project15 UIKit動畫
 1. 使用UIView.animate、CGAffineTransform執行動畫
 2. 設計圖片放大、縮小動畫
 3. 設計位置移動動畫
@@ -105,7 +105,15 @@
 6. 利用rightCalloutAccessoryView設定大頭針的資訊泡泡
 7. 設定大頭針旁的小標籤annotation
 
-## Project17
+## Project17 Space Race太空垃圾小遊戲
+1. 使用SpriteKit設計遊戲
+2. 設計Timer.scheduledTimer定期創建新的太空垃圾
+3. 利用advanceSimulationTime，讓遊戲開始時星空即可佈滿畫面
+4. 利用CGVector設定太空垃圾的移動速度
+5. 設定太空垃圾的旋轉角速度
+6. 垃圾離開畫面後，從遊戲中移除該物件，降低記憶體負擔
+7. 利用SKPhysicsBody設定物品在遊戲場景中的物理實體(可觸發碰撞)
+
 ## Project18
 ## Project19
 ## Project20
