@@ -61,32 +61,48 @@ class GameScene: SKScene {
     // 炸彈音效
     var bombSoundEffect: AVAudioPlayer?
     
-    //
+    // 在場上沒有物品後，準備擲出下一輪物品的時間
     var popupTime = 0.9
-    //
+    
+    /** 遊戲每一輪擲出物品，我們設計成幾種固定的型態，
+     * 一輪稱為一個sequence。
+     * 設計在enum SequenceType: CaseIterable中。
+     * 而此處我們設計成Array，遊戲會根據這個Array的排序，一輪一輪擲出物品。
+     */
     var sequence = [SequenceType]()
-    //
+    // 目前遊戲進行到的輪數
     var sequencePosition = 0
-    //
+    // 當擲出型態為chain時，每個物品被擲出的時間間隔
     var chainDelay = 3.0
     //
     var nextSequenceQueued = true
     
-    
+    /** 遊戲是否已結束。
+     *  遊戲中紙條件:
+     *  1. 玩家三命已經用完
+     *  2. 玩家切到炸彈
+     */
     var isGameEnded = false
     
-
+    /** didMove()類似UIKit的ViewDidLoad()
+     *
+     */
     override func didMove(to view: SKView) {
         // 設定背景圖片
         createBackground()
         
+        // 設定重力場，物品才會向下掉落
         physicsWorld.gravity = CGVector(dx: 0, dy: -6)
+        //
         physicsWorld.speed = 0.85
         
+        // 設定得分Label
         createScore()
         
+        // 設定表示命數的叉叉
         createLives()
         
+        //
         createSlices()
         
         sequence = [.oneNoBomb, .oneNoBomb, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
@@ -123,6 +139,7 @@ class GameScene: SKScene {
         addChild(gameScore)
     }
     
+    // 設定表示命數的叉叉
     func createLives(){
         for i in 0...2{
             let live = SKSpriteNode(imageNamed: "sliceLife")
@@ -133,6 +150,7 @@ class GameScene: SKScene {
         }
     }
     
+    // 設定玩家劃過的筆觸物件
     func createSlices(){
         // 下方黃色路徑畫筆
         activeSliceBG = SKShapeNode()
@@ -165,6 +183,7 @@ class GameScene: SKScene {
         
         activeSlicePoints.append(location)
         
+        // 重新依照新的路徑點陣列([CGPoint])繪製筆刀
         redrawActiveSlice()
         
         /** 由於可能發生activeSliceFG與activeSliceBG正在執行Action時，
@@ -196,6 +215,10 @@ class GameScene: SKScene {
         // 取得所有在路徑上的node
         let nodesAtPoint = nodes(at: location)
         
+        /** for迴圈搭配case let的用法說明:
+         *  只有在符合條件時才會執行本圈。
+         *  此處為，若node是一個SKSpriteNode才會執行。
+         */
         for case let node as SKSpriteNode in nodesAtPoint{
             
             // 碰到的是企鵝，執行消除企鵝
@@ -265,11 +288,25 @@ class GameScene: SKScene {
         }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 玩家在手指離開螢幕時，0.25秒內動畫fadeout
+        activeSliceBG.run(SKAction.fadeOut(withDuration: 0.25))
+        activeSliceFG.run(SKAction.fadeOut(withDuration: 0.25))
+    }
+    
+    
+    /** 遊戲結束。
+     * 傳入是否因為User切到炸彈而結束遊戲
+     *
+     */
     func endGame(triggeredByBomb: Bool){
         // 確認遊戲尚未被設定為結束
         guard isGameEnded == false else { return }
         isGameEnded = true
-        physicsWorld.speed = 0
+        
+        // 物體速度皆改為0
+//        physicsWorld.speed = 0
+        // 玩家無法再繼續操作畫面
         isUserInteractionEnabled = false
         
         bombSoundEffect?.stop()
@@ -299,11 +336,7 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // 玩家在手指離開螢幕時，0.25秒內動畫fadeout
-        activeSliceBG.run(SKAction.fadeOut(withDuration: 0.25))
-        activeSliceFG.run(SKAction.fadeOut(withDuration: 0.25))
-    }
+    
     
     // 繪製玩家劃過的路徑
     func redrawActiveSlice(){
@@ -345,7 +378,6 @@ class GameScene: SKScene {
         
         if enemyType == 0 {
             // 產生炸彈
-            
             enemy = SKSpriteNode()
             enemy.zPosition = 1
             enemy.name = "bombContainer"
@@ -359,13 +391,17 @@ class GameScene: SKScene {
                 bombSoundEffect?.stop()
                 bombSoundEffect = nil
             }
-            // 播放音效
+            
+            /** 播放炸彈引線的音效。
+             * 由於SKAction.run無法「停止播放」音效，因此此處使用AVAudioPlayer。
+             */
             if let path = Bundle.main.url(forResource: "sliceBombFuse", withExtension: "caf"){
                 if let sound = try? AVAudioPlayer(contentsOf: path){
                     bombSoundEffect = sound
                     sound.play()
                 }
             }
+            
             // 加入炸彈的火花
             if let emitter = SKEmitterNode(fileNamed: "sliceFuse"){
                 emitter.position = CGPoint(x: 76, y: 64)
@@ -387,6 +423,11 @@ class GameScene: SKScene {
         let randomAngularVelocity = CGFloat.random(in: -3...3)
         // 水平速度(X)
         let randomXVelocity: Int
+        /** 此處設計若物品被初始的位置，
+         * 在畫面的左半側，它就會被往右邊投擲。
+         * 在畫面的右半側，他就會被往左邊投擲。
+         * 才不會造成物體從左邊出現右往左邊丟，玩家根本沒機會切的問題。
+         */
         if randomPosition.x < 256 {
             randomXVelocity = Int.random(in: 8...15)
         } else if randomPosition.x < 512 {
@@ -401,15 +442,23 @@ class GameScene: SKScene {
         let randomYVelocity = Int.random(in: 24...32)
         
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
+        // 移動速度
         enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
+        // 自旋角速度
         enemy.physicsBody?.angularVelocity = randomAngularVelocity
         // 設定不會與其他物品相撞
         enemy.physicsBody?.collisionBitMask = 0
         
+        // 遊戲畫面中加入此enemy
         addChild(enemy)
+
+        /** 將此enemy加入「還在場上的Enemies」陣列
+         *  enemy將會在它離開畫面或是被玩家切除時，從陣列中被移除。
+         */
         activeEnemies.append(enemy)
     }
     
+    // 玩家減一命
     func subtractLife(){
         lives -= 1
         
@@ -426,6 +475,7 @@ class GameScene: SKScene {
         // 本次減命後，沒命了
         } else {
             life = livesImages[2]
+            // 遊戲結束，並非炸彈觸發
             endGame(triggeredByBomb: false)
         }
         // 設定為減命圖片(紅叉叉)
@@ -435,7 +485,6 @@ class GameScene: SKScene {
         life.xScale = 1.3
         life.yScale = 1.3
         life.run(SKAction.scale(to: 1, duration: 0.1))
-        
     }
     
     // update會在每一個frame更新時被呼叫
@@ -443,7 +492,11 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // 檢查是否有enemy已經離開遊戲視線範圍，應移除
         if activeEnemies.count > 0 {
-            // 移除node應從array的後端移除
+            /** 移除node應從array的後端移除
+             * 注意！在操作for迴圈[index, 元素]時，
+             * array先呼叫.enumerated()與先呼叫.reversed()，
+             * 會有不同的結果。應小心使用。
+             */
             for (index, node) in activeEnemies.enumerated().reversed() {
                 if node.position.y < -140 {
                     node.removeFromParent()
@@ -459,6 +512,7 @@ class GameScene: SKScene {
                         node.removeFromParent()
                     }
                     
+                    // 將該Enemy從「在場上的enemies」陣列中移除
                     activeEnemies.remove(at: index)
                 }
             }
@@ -472,9 +526,9 @@ class GameScene: SKScene {
             }
         }
         
-        
+        // 目前炸彈數量
         var bombCount = 0
-        
+        // 若「在場上的enemies」有包含炸彈，break
         for node in activeEnemies {
             if node.name == "bombContainer"{
                 bombCount += 1
@@ -489,11 +543,13 @@ class GameScene: SKScene {
         }
     }
     
+    // 投擲一輪
     func tossEnemies() {
         guard isGameEnded == false else { return }
         
         popupTime *= 0.991
         chainDelay *= 0.99
+        // 遊戲每輪的物理速度會加快，增加遊戲難度
         physicsWorld.speed *= 1.02
         
         // 取得本輪要投擲enemy的樣式
@@ -547,8 +603,6 @@ class GameScene: SKScene {
             DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * 4)){ [weak self] in
                 self?.createEnemy()
             }
-        default:
-            break
         }
         
         sequencePosition += 1

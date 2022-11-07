@@ -145,7 +145,15 @@
 3. 設定App要搜索iBeacon的CLBeaconRegion，UUID, Major與Minor
 4. 根據didRangeBeacons收到的距離參數，動畫改變也面顏色與標題
 
-## Project23
+## Project23 Swifty Ninja切水果小遊戲
+1. 使用SpriteKit設計遊戲
+2. 使用SKShapeNode繪製玩家劃過的刀光
+3. 利用touchesBegan、touchesMoved與touchesEnded繪製玩家刀光
+4. 設計遊戲投擲樣式(SequenceType)與「是否必投擲炸彈」(ForceBomb)的enum
+5. 使用AVFoundation的AVAudioPlayer播放炸彈引線音效，並空停止播放時機
+6. 設計遊戲中實體物品(physicsBody)被丟直出來的速度(velocity)與角速度(angularVelocity)
+7. 利用DispatchQueue.main.asyncAfter設計延遲時間後再執行某closure
+8. 使用SKAction.fadeOut設計刀光淡出動畫
 
 ## Project24
 ## Project25
