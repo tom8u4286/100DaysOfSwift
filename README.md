@@ -96,7 +96,14 @@
 5. 設計顏色、透明度改變動畫
 6. 使用usingSpringWithDamping讓動畫有彈性效果 
 
-## Project16
+## Project16 Capital Cities地圖與首都標記
+1. 使用MapKit繪製地圖 
+2. 設計Capital類別，存放標題、經緯度(CLLocationCoordinate2D)、說明
+3. Capital遵循MKAnnotation協定，可作為地圖標的(如大頭針)
+4. 利用is作為判斷式(判斷物件是否為Capital類別)
+5. 利用dequeueReusableAnnotationView重複使用大頭針(類似TableView與Cell的概念)
+6. 利用rightCalloutAccessoryView設定大頭針的資訊泡泡
+7. 設定大頭針旁的小標籤annotation
 
 ## Project17
 ## Project18

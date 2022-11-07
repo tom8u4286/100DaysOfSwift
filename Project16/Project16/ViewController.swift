@@ -9,8 +9,8 @@ import MapKit
 import UIKit
 
 class ViewController: UIViewController,
-                      MKMapViewDelegate {
-
+                      MKMapViewDelegate // 可以接收地圖相關事件
+{
     // 地圖畫面實體
     @IBOutlet var mapView: MKMapView!
     
@@ -53,9 +53,9 @@ class ViewController: UIViewController,
     
     
     /** 每當iOS要顯示一個annotation時，會呼叫viewFor函式。
-     *
      */
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // 利用is判斷是否為Capital類別
         guard annotation is Capital else { return nil }
         
         let identifier = "Capital"
@@ -84,6 +84,10 @@ class ViewController: UIViewController,
     
     // CallOut泡泡的元件在被點選時，會觸發此function(calloutAccessoryControlTapped)
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        /** 此處將傳入「被點選的物件」，如大頭針view<
+         * 此view是一個MKAnnotationView物件，而我們設計的Capital也是一個遵循MKAnnotationView協定的物件，
+         * 因此可以轉換。
+         */
         guard let capital = view.annotation as? Capital else { return }
         
         let placeName = capital.title
