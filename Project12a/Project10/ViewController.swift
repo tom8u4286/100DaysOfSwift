@@ -7,22 +7,33 @@
 import UIKit
 
 class ViewController: UICollectionViewController,
-                    UIImagePickerControllerDelegate,
-                    UINavigationControllerDelegate {
-    
+                    UIImagePickerControllerDelegate, // ImageController所需
+                    UINavigationControllerDelegate // ImageController所需
+{
+    /**  people為儲存Person物件的陣列。
+     * Person的類別，儲存單一比相片資料。
+     * Person內包含name與image兩個字串變數。
+     *
+     * Person類別遵循NSCoding，
+     * 可搭配符合NSCoder的物件(如：NSKeyedArchiver)，
+     * 將資料寫入UserDefaults中。
+     */
     var people = [Person]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        // 加號按鈕，讓User新增照片
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addNewPerson))
-        
         
         /** 在App開啟時，先將people從DB中取出來。
          *  存放入people變數中。
          */
         let defaults = UserDefaults.standard
+        
+        /** 以Data型態，將People存入UserDefault中。
+         * 設定key為"people"，到時要取用時，可以以"people"存取。
+         */
         if let savedPeople = defaults.object(forKey: "people") as? Data {
             if let decodedPeople = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedPeople) as? [Person] {
                 people = decodedPeople
@@ -30,6 +41,7 @@ class ViewController: UICollectionViewController,
         }
     }
     
+    // 讓User使用ImagePicker新增一張圖片
     @objc func addNewPerson(){
         let picker = UIImagePickerController()
         
@@ -44,11 +56,10 @@ class ViewController: UICollectionViewController,
         present(picker, animated: true)
     }
     
-    /** User相片選擇完畢時
-     * 會觸發didFinishPickingMediaWithInfo
+    /** User相片選擇完畢時會觸發didFinishPickingMediaWithInfo，
+     *  可從info中取得所選圖片。
      */
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("✅ 相片選擇完畢 didFinishPickingMediaWithInfo被觸發！")
         // 確認info所帶的image資料內容，可以被轉換成UIImage格式
         guard let image = info[.editedImage] as? UIImage else { return }
         
@@ -67,8 +78,11 @@ class ViewController: UICollectionViewController,
         
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
+        
         // 存入UserDefault DB
         save()
+        
+        // 重新整理collectionView
         collectionView.reloadData()
         
         /** 此處的dimiss沒有說明被dismiss的controller
@@ -108,6 +122,8 @@ class ViewController: UICollectionViewController,
     }
     
     /** 重點！ 此處將我們的資料格式存入UserDefault DB。
+     *  此處我們使用NSKeyedArchiver，將資料轉換後存入UserDefaults。
+     *  將可搭配NSKeyedUnarchiver，讀取UserDefaults中的資料。
      */
     func save(){
         if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: people, requiringSecureCoding: false){
@@ -124,7 +140,6 @@ class ViewController: UICollectionViewController,
      */
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print("getDocumentsDirectory: \(path[0])")
         return path[0]
     }
     

@@ -7,23 +7,38 @@
 import UIKit
 
 class ViewController: UICollectionViewController,
-                    UIImagePickerControllerDelegate,
-                    UINavigationControllerDelegate {
+                    UIImagePickerControllerDelegate, // ImageController所需
+                    UINavigationControllerDelegate // ImageController所需
+    {
     
+    /**  people為儲存Person物件的陣列。
+     * Person的類別，儲存單一比相片資料。
+     * Person內包含name與image兩個字串變數。
+     *
+     * Person設計為遵循Codable的Class，
+     * 可以以JSON的方式，搭配JSONEncoder存入UserDefauts。
+     */
     var people = [Person]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        // 加號按鈕，讓User新增照片
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addNewPerson))
         
-        
+        /** 在App開啟時，先將people從DB中取出來。
+         *  存放入people變數中。
+         */
         let defaults = UserDefaults.standard
+        
         /** 此處應注意，
          * defaults.object讀出來的型態為Any，要記得as?轉換為 Data型態
          */
         if let savedPeople = defaults.object(forKey: "people") as? Data{
+            
+            /** 使用JSONDecoder將資料以JSON的格式，
+             * 從UserDefaults中讀取出來。
+             */
             let jsonDecoder = JSONDecoder()
             
             do {
@@ -35,6 +50,7 @@ class ViewController: UICollectionViewController,
             
     }
     
+    // 讓User使用ImagePicker新增一張圖片
     @objc func addNewPerson(){
         let picker = UIImagePickerController()
         
@@ -49,9 +65,10 @@ class ViewController: UICollectionViewController,
         present(picker, animated: true)
     }
     
-    // didFinishPickingMediaWithInfo
+    /** User相片選擇完畢時會觸發didFinishPickingMediaWithInfo，
+     *  可從info中取得所選圖片。
+     */
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("✅ 相片選擇完畢 didFinishPickingMediaWithInfo被觸發！")
         // 確認info所帶的image資料內容，可以被轉換成UIImage格式
         guard let image = info[.editedImage] as? UIImage else { return }
         
@@ -74,6 +91,7 @@ class ViewController: UICollectionViewController,
         // 將people存入UserDefault DB
         save()
         
+        // 重新整理collectionView
         collectionView.reloadData()
         
         /** 此處的dimiss沒有說明被dismiss的controller
@@ -113,6 +131,10 @@ class ViewController: UICollectionViewController,
         present(ac, animated: true)
     }
     
+    /** 重點！ 此處將我們的資料格式存入UserDefault DB。
+     *  此處我們使用JSONEncoder，將資料轉換後存入UserDefaults。
+     *  將可搭配JSONDecoder，將資料從UserDefaults中取出。
+     */
     func save(){
         let jsonEncoder = JSONEncoder()
         
@@ -133,7 +155,6 @@ class ViewController: UICollectionViewController,
      */
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print("getDocumentsDirectory: \(path[0])")
         return path[0]
     }
     

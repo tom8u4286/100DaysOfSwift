@@ -67,8 +67,13 @@
 3. 設定isDynamic，讓物體有重力加速度與碰撞加速度
 4. 以CGPoint設定障礙物與彈珠物件在遊戲中的位置
 
-## Project12
+## Project12AB UserDefaults長久儲存資料
+1. 使用UserDefault將使用者資料長期儲存(persist storage)
+2. 使用NSCoding、NSKeyedArchiver、NSKeyedUnarchiver儲存與讀取資料
+3. 使用JSONEncoder、JSONDecoder、Codable儲存讀取資料
+
 ## Project13
+
 ## Project14
 ## Project15
 ## Project16
