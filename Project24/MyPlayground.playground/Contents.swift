@@ -10,6 +10,7 @@ for letter in name {
 let letter = name[name.index(name.startIndex, offsetBy: 3)]
 let password = "12345"
 
+// 是否包含字首、字尾
 password.hasPrefix("123")
 password.hasSuffix("456")
 
@@ -28,7 +29,7 @@ extension String {
 
 
 let weather = "it's going to rain"
-// capitalized會將每一個單字的第一個字幕都大寫
+// capitalized會將每一個單字的第一個字母都大寫
 print(weather.capitalized)
 
 // 我們也可以設計我們自己的function，只讓句子的第一個
@@ -77,7 +78,6 @@ input.containsAny(of: languages)
  * 如此一來，就不用自己撰寫的containsAny()
  */
 languages.contains(where: input.contains)
-
 
 
 /** 字體更改練習

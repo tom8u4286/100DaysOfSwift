@@ -155,7 +155,13 @@
 7. 利用DispatchQueue.main.asyncAfter設計延遲時間後再執行某closure
 8. 使用SKAction.fadeOut設計刀光淡出動畫
 
-## Project24
+## Project24 Swift字串操作
+1. hasPrefix與hasSuffix判斷
+2. 設計可刪除特定自首或字尾的extension函式
+3. capitalized將字串內字母改為大寫
+4. string.contains() 判斷是否包含某字串
+5. NSAttributedString設計字體樣式，在同一字串中設定不同字體
+
 ## Project25
 ## Project26
 ## Project27
