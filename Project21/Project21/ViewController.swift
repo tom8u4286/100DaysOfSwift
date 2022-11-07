@@ -26,7 +26,6 @@ class ViewController: UIViewController,
         // 右側設計「開始通知定時器」
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocal))
         
-        
         // 將"alarm"類別的通知註冊給通知中心
         registerCategories()
     }
@@ -59,8 +58,10 @@ class ViewController: UIViewController,
         content.title = "Late wake up call"
         content.body = "The early bird catches the worm, but the second mouse gets the cheese."
         
-        /** 當App可能產生各式的通知時，就會給定每一個通知一個「類別category」，
-         * 此處我們將這個通知歸類為"alarm"
+        /** 當App可能產生各式的通知時，就會給定每一個通知一個「類別category」ID，
+         * 此處我們將這個通知歸類為"alarm"ID。
+         * 我們在viewDidLoad中呼叫registerCategories()，註冊了"alarm"這個類別的通知。
+         * 因此通知中心在送出此通知時，會知道這個通知會有我們在註冊通知時設計的Action按鈕。
          */
         content.categoryIdentifier = "alarm"
         
@@ -97,7 +98,11 @@ class ViewController: UIViewController,
          */
         let show = UNNotificationAction(identifier: "show", title: "Tell me more...", options: .foreground)
         let show2 = UNNotificationAction(identifier: "show2", title: "Second option", options: .destructive)
-        // 產生通知類別物件
+        
+        /** 產生通知類別物件
+         * 當我們設計好我們通知裡的Action後(項Alert一樣或許有多個Action)，
+         * 我們將他包裝成一個Category，對通知中心註冊。
+         */
         let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [], options: [])
         let category2 = UNNotificationCategory(identifier: "alarm", actions: [show2], intentIdentifiers: [], options: [])
         
@@ -105,10 +110,8 @@ class ViewController: UIViewController,
         center.setNotificationCategories([category, category2])
     }
     
-    
     /** 此為UNUserNotificationCenterDelegate來的function
      *  當User對通知做出反應時，會被觸發。
-     *
      */
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
@@ -117,12 +120,16 @@ class ViewController: UIViewController,
          * actionIdentifier為"alarm"
          * title為"Late wake up call"
          * body為"The early bird catches the worm, but the second mouse gets the cheese."
+         *
+         * 這些內容在center.add()，我們送入一個request時(UNNotificationRequest)會被寫入。
          */
         let userInfo = response.notification.request.content.userInfo
         
         if let customData = userInfo["customData"] as? String {
             print("Custom data received: \(customData)")
             
+            /** actionIdentifier在先前註冊通知類別(UNNotificationCategory)的Action(UNNotificationAction)中時被設定。
+             */
             switch response.actionIdentifier{
             case UNNotificationDefaultActionIdentifier:
                 print("Default identifier")

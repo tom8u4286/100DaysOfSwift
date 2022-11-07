@@ -129,7 +129,16 @@
 5. touchesBegan與touchesMoved中設計判斷觸碰到的煙火
 6. 煙火離開畫面後，將其從Scene中移除，降低記憶體負擔
 
-## Project21
+## Project21 Local Notification事件通知
+1. 利用UserNotifications Library實作 
+2. 使用UNUserNotificationCenter請求App發送通知權限 
+3. removeAllPendingNotificationRequests()移除手機鎖定頁面，App相關的所有通知
+4. 使用UNMutableNotificationContent()可以
+5. 使用DateComponents()建立日期與時間物件
+6. 設計特定時間點觸發通知的UNCalendarNotificationTrigger與一段時間後觸發通知的UNTimeIntervalNotificationTrigger
+7. 實作給通知中心的通知請求UNNotificationRequest
+8. 實作通知類別UNNotificationCategory，並將此類別註冊給通知中心
+
 ## Project22
 ## Project23
 ## Project24
