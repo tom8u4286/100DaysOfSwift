@@ -114,7 +114,11 @@
 6. 垃圾離開畫面後，從遊戲中移除該物件，降低記憶體負擔
 7. 利用SKPhysicsBody設定物品在遊戲場景中的物理實體(可觸發碰撞)
 
-## Project18
+## Project18 Debug方法操作
+1. print的terminator與separator
+2. assert的使用與crash條件設定
+3. Xcode的breakpoint與條件設定
+
 ## Project19
 ## Project20
 ## Project21
