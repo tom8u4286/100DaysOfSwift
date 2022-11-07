@@ -1,14 +1,14 @@
 本專案夾存放2022年練習100 Days of Swift的30個練習Project。以下介紹各Project的練習重點。
 
-## Project1 Storm Viewer
+## Project1 Storm Viewer TableView相片檢視
 1. TableViewController 練習使用TableViewController，並設定numberOfRowsInSection與cellForRowAt。
 2. 使用dequeueReusableCell，提高記憶體使用效率。
 3. FileManager 練習使用FileManager讀取Bundle中具有某檔名的圖片。
-4. 練習使用as?，嘗試將物件轉型至某一類別型態。
-5. 練習storyboard設計Layout，並使用AutoLayout contraints設計imageView的大小。
+4. 使用as?，嘗試將物件轉型至某一類別型態。
+5. 使用storyboard設計Layout，並使用AutoLayout contraints設計imageView的大小。
 
-## Project2
-1. 練習使用storyboard設計三個國旗按鈕，並設計AutoLayout，將國旗放置整齊。
+## Project2 國旗國名小遊戲
+1. 使用storyboard設計三個國旗按鈕，並設計AutoLayout，將國旗放置整齊。
 2. 使用NavigationController，設定標題。
 3. 使用Int.Random，讓各題的答案皆在不同位置(如：第一題正確答案為A，第二題正確答案為C)。
 4. 使用shuffle()，讓各題的選項皆不同(如：第一題為US、Japan、UK，第二題為Spain、Franch、Russian)。
@@ -72,11 +72,18 @@
 2. 使用NSCoding、NSKeyedArchiver、NSKeyedUnarchiver儲存與讀取資料
 3. 使用JSONEncoder、JSONDecoder、Codable儲存讀取資料
 
-## Project13
+## Project13 圖片濾鏡
+1. 使用CoreImage的CIContext與CIFilter設計圖片濾鏡
+2. 以kCIInputIntensityKeygk設定濾鏡參數
+3. 使用UISlider調整濾鏡處理相片的程度
+4. 將處理完成的相片存入手機相簿中
 
 ## Project14
+
 ## Project15
+
 ## Project16
+
 ## Project17
 ## Project18
 ## Project19

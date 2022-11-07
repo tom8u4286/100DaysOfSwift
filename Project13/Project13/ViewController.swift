@@ -10,8 +10,8 @@ import CoreImage
 import UIKit
 
 class ViewController: UIViewController,
-    UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
+    UIImagePickerControllerDelegate, // imagePicker所須,
+    UINavigationControllerDelegate // imagePicker所須
 {
 
     // 當前頁面上的ImageView，預計讓User加入圖庫中的圖片進來
@@ -25,6 +25,7 @@ class ViewController: UIViewController,
 
     // CI表示Core Image，CIContext負責Rendering
     var context: CIContext!
+    
     // 當前使用的濾鏡
     var currentFilter: CIFilter!
     
@@ -99,11 +100,13 @@ class ViewController: UIViewController,
         // 檢查User是否已經選擇圖片
         guard currentImage != nil else { return }
         
+        // 標題改為目前User所選的濾鏡
         guard let actionTitle = action.title else { return }
         
         // 初始新的CIFilter
         currentFilter = CIFilter(name: actionTitle)
         
+        // CIFilter要使用CIImage進行操作
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
         
@@ -145,8 +148,10 @@ class ViewController: UIViewController,
             currentFilter.setValue(CIVector(x: currentImage.size.width/2, y: currentImage.size.height/2), forKey: kCIInputCenterKey)
         }
         
+        /** 注意！此處要先將CIImage轉為CGImage，最後再轉入UIImage。
+         *  可參考彼得潘文章：#74 利用 CIFilter 實現美麗的圖片濾鏡
+         */
         guard let outputImage = currentFilter.outputImage else { return }
-        
         if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
             let processedImage = UIImage(cgImage: cgImage)
             imageView.image = processedImage
@@ -155,11 +160,12 @@ class ViewController: UIViewController,
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            // we got back an error!
+            // 儲存發生錯誤
             let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         } else {
+            // 正常儲存照片
             let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
