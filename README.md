@@ -88,7 +88,13 @@
 7. 使用SKAction.sequence設計序列動畫
 8. 使用SKAction.playSoundFileNamed播放打擊音效
 
-## Project15
+## Project15 動畫
+1. 使用UIView.animate、CGAffineTransform執行動畫
+2. 設計圖片放大、縮小動畫
+3. 設計位置移動動畫
+4. 設計圖片旋轉動畫
+5. 設計顏色、透明度改變動畫
+6. 使用usingSpringWithDamping讓動畫有彈性效果 
 
 ## Project16
 
