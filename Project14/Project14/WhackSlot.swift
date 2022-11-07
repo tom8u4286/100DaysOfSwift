@@ -95,6 +95,7 @@ class WhackSlot: SKNode {
         // 確認目前企鵝是在出現的狀態
         if !isVisible { return }
         
+        // 企鵝向下移動，躲進洞口裡
         charNode.run(SKAction.moveBy(x: 0, y: -80, duration: 0.05))
         isVisible = false
     }
@@ -106,12 +107,15 @@ class WhackSlot: SKNode {
         /** 設計好三個行為後，
          * 請charNode執行此三個動作。
          */
+        // wait為一個等待一小段時間的行為
         let delay = SKAction.wait(forDuration: 0.25)
         let hide = SKAction.moveBy(x: 0, y: -80, duration: 0.5)
         let notVisible = SKAction.run{ [weak self] in
             self?.isVisible = false
         }
+        // 設計序列動畫
         let sequence = SKAction.sequence([delay, hide, notVisible])
+        // 執行此序列動畫
         charNode.run(sequence)   
     }
 }

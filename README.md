@@ -72,13 +72,21 @@
 2. 使用NSCoding、NSKeyedArchiver、NSKeyedUnarchiver儲存與讀取資料
 3. 使用JSONEncoder、JSONDecoder、Codable儲存讀取資料
 
-## Project13 圖片濾鏡
+## Project13 Instafilter 圖片濾鏡
 1. 使用CoreImage的CIContext與CIFilter設計圖片濾鏡
 2. 以kCIInputIntensityKeygk設定濾鏡參數
 3. 使用UISlider調整濾鏡處理相片的程度
 4. 將處理完成的相片存入手機相簿中
 
-## Project14
+## Project14 Whack-a-Penguin 打企鵝小遊戲
+1. 使用SpriteKit創建遊戲
+2. 繼承SKNode建立WhackSlot類別，
+3. 使用SKCropNode建立遮蔽Mask，讓企鵝可以像躲在洞內
+4. 使用DispatchQueue的asyncAfter設計一段時間後執行工作
+5. 使用SKTexture調整node的圖片內容(好壞企鵝交替)
+6. 使用node.run執行SKAction動畫(企鵝出現與隱藏)
+7. 使用SKAction.sequence設計序列動畫
+8. 使用SKAction.playSoundFileNamed播放打擊音效
 
 ## Project15
 
