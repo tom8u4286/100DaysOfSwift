@@ -19,18 +19,14 @@ class ViewController: UIViewController,
     
     var locationManager: CLLocationManager?
     
-    //
     /** App是否找到beacon。
      * 若狀態為far, near, immediate時，為true。
      * unknown時為false。
-     *
      */
     var beaconFound = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -42,7 +38,6 @@ class ViewController: UIViewController,
         view.backgroundColor = .gray
     }
     
-    //
     /** 當User同意位置權限時，會觸發本function
      * 此處我們設計，當User同意我們使用位置權限為.authorizedAlways時，
      * 即開始進行iBeacon的掃描(startScanning())。
@@ -71,7 +66,6 @@ class ViewController: UIViewController,
 
         locationManager?.startMonitoring(for: beaconRegion)
         locationManager?.startRangingBeacons(in: beaconRegion)
-        
     }
     
     func startScanning2(){
@@ -80,9 +74,7 @@ class ViewController: UIViewController,
 
         locationManager?.startMonitoring(for: beaconRegion)
         locationManager?.startRangingBeacons(in: beaconRegion)
-        
     }
-    
     
     /** 在蘋果的iBeacon架構中，定義出了四種不同的距離
      * 1. unknown  遠於50M
@@ -108,7 +100,6 @@ class ViewController: UIViewController,
             default:
                 self.view.backgroundColor = .gray
                 self.distanceReading.text = "UNKNOWN"
-                
             }
         }
     }

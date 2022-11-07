@@ -139,8 +139,14 @@
 7. 實作給通知中心的通知請求UNNotificationRequest
 8. 實作通知類別UNNotificationCategory，並將此類別註冊給通知中心
 
-## Project22
+## Project22 iBeacon裝置距離偵測
+1. 利用CoreLocation實作，以requestAlwaysAuthorization請求User手機位置權限
+2. 利用CLLocationManagerDelegate接收位置權限狀態改變事件 
+3. 設定App要搜索iBeacon的CLBeaconRegion，UUID, Major與Minor
+4. 根據didRangeBeacons收到的距離參數，動畫改變也面顏色與標題
+
 ## Project23
+
 ## Project24
 ## Project25
 ## Project26
