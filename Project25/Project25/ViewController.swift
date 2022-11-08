@@ -14,29 +14,35 @@ class ViewController: UICollectionViewController,
                       MCSessionDelegate, // 建立MCSession所需
                       MCBrowserViewControllerDelegate // 建立MCBrowserViewController所需
 {
+    // 存放User選擇的照片或其他會議中裝置傳進來的照片
     var images = [UIImage]()
     
-    // multipeer房間的相關編號
-    // displayName指的是在其他裝置上會顯示我的名稱
+    /** multipeer房間的相關編號
+     *將於viewDidLoad中實體化。
+     */
     var peerID: MCPeerID!
     var mcSession: MCSession!
+    // 將用於創建新的Session時，在網路上廣播自己
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Selfie Share"
         
+        // 右上新增圖片按鈕
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        // 左上新增加入或新創Session按鈕
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
         
+        // displayName指的是在其他裝置上會顯示我的名稱
         peerID = MCPeerID(displayName: UIDevice.current.name)
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession.delegate = self
         
     }
     
+    // 讓User新創或加入Session的Alert
     @objc func showConnectionPrompt(){
         let ac = UIAlertController(title: "Connect to others", message: nil, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Host a session", style: .default, handler: startHosting))
@@ -45,11 +51,13 @@ class ViewController: UICollectionViewController,
         present(ac, animated: true)
     }
     
+    // 新創一個Session
     @objc func startHosting(action: UIAlertAction){
         mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws", discoveryInfo: nil, session: mcSession)
         mcAdvertiserAssistant.start()
     }
     
+    // 加入一個Session
     @objc func joinSession(action: UIAlertAction){
         let mcBrowser = MCBrowserViewController(serviceType: "hws", session: mcSession)
         mcBrowser.delegate = self
@@ -82,10 +90,13 @@ class ViewController: UICollectionViewController,
         return cell
     }
     
+    // 使用imagePicker選擇相片
     @objc func importPicture(){
         // 顯示imagePicker
         let picker = UIImagePickerController()
+        // 允許User編輯照片
         picker.allowsEditing = true
+        // 本類別以指定為UINavigationControllerDelegate與UIImagePickerControllerDelegate
         picker.delegate = self
         present(picker, animated: true)
     }
@@ -96,7 +107,7 @@ class ViewController: UICollectionViewController,
         // 關閉imagePicker
         dismiss(animated: true)
         
-        // 從頭加入image
+        // 從頭加入images陣列
         images.insert(image, at: 0)
         
         /** 開始將圖片推給其他連線中的peer
@@ -117,25 +128,16 @@ class ViewController: UICollectionViewController,
         }
     }
     
+    /** MCSessionDelegate有五個required的function。
+     * 此處我們只使用到didChange與didReceive。
+     */
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
     }
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
     }
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
     }
-    
-    /** browserViewControllerDidFinish與browserViewControllerWasCancelled
-     * 為MCBrowserViewControllerDelegate所需function。
-     */
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        dismiss(animated: true)
-    }
-
-    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        dismiss(animated: true)
-    }
-
-    
+    // 連線狀態有改變時didChange會被呼叫
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state{
         case .connected:
@@ -148,8 +150,7 @@ class ViewController: UICollectionViewController,
             print("Unknown state received: \(peerID.displayName)")
         }
     }
-    
-    
+    // didReceive將在 當有成員開啟一個byte stream connection穿送檔案來時被呼叫
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         // 將接收到的圖片，在main thread推進UI中
         DispatchQueue.main.async { [weak self] in
@@ -159,5 +160,16 @@ class ViewController: UICollectionViewController,
             }
         }
     }
+    
+    /** browserViewControllerDidFinish與browserViewControllerWasCancelled
+     * 為MCBrowserViewControllerDelegate所需function。
+     */
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+
 }
 

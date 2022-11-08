@@ -1,7 +1,10 @@
 本專案夾存放2022年練習100 Days of Swift的30個練習Project。以下介紹各Project的練習重點。
 
-## Project1 Storm Viewer TableView相片檢視
-1. TableViewController 練習使用TableViewController，並設定numberOfRowsInSection與cellForRowAt。
+100 Days of Swift 教材網址:
+https://www.hackingwithswift.com/100
+
+## Project1 Storm Viewer 相片檢視
+1. 使用TableViewController，並設定numberOfRowsInSection與cellForRowAt。
 2. 使用dequeueReusableCell，提高記憶體使用效率。
 3. FileManager 練習使用FileManager讀取Bundle中具有某檔名的圖片。
 4. 使用as?，嘗試將物件轉型至某一類別型態。
@@ -162,8 +165,16 @@
 4. string.contains() 判斷是否包含某字串
 5. NSAttributedString設計字體樣式，在同一字串中設定不同字體
 
-## Project25
+## Project25 Selfie Share-鄰近iOS裝置圖片分享
+1. 使用MultipeerConnectivity
+2. 設計app創建與加入一個Session
+3. 使用MCSessionDelegate與MCBrowserViewControllerDelegater接收MC相關事件
+4. 使用imagePicker選擇相簿照片
+5. 使用CollectionView設計照片放置區
+6. 使用NSLayoutConstraint設計View的AutoLayout
+
 ## Project26
+
 ## Project27
 ## Project28
 ## Project29
