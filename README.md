@@ -175,13 +175,21 @@ https://www.hackingwithswift.com/100
 
 ## Project26
 
-## Project27
+## Project27 Core Graphic繪圖
 1. 使用UIGraphicsImageRenderer進行繪圖
 2. 使用.cgContext設定填滿顏色(fillColor)、筆觸(strokeColor)、邊框(border)與形狀
 3. 使用.cgContext移動(translateBy)及旋轉(rotate)作圖
 4. 各類形狀繪製: 棋盤、方形迴圈、旋轉方形
 5. 利用UIGraphicsImageRendererc繪製有字體文字(NSAttributedString)與圖片(UIImage)
 
-## Project28
+## Project28 Secret Swift 生物識別TouchID FaceID與Keychain應用
+1. 使用LocalAuthentication進行TouchID或FaceID身份驗證
+2. 請求生物識別使用權限
+3. 使用開源專案KeychainWrapper，將資料加密寫入iOS Keychain
+4. 解密Keychain中先前儲存的內容
+5. 使用notificationCenter，接收鍵盤相關事件
+6. 設計TextField上移動畫，使編輯處不會被鍵盤擋住
+7. 使用notificationCenter，接收App前、背景狀態改變事件
+
 ## Project29
 ## Project30

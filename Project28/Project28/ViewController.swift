@@ -10,11 +10,15 @@ import LocalAuthentication
 
 class ViewController: UIViewController {
 
+    // 在頁面上讓User打字的區域，準備進行加密
     @IBOutlet var secret: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /** 在身份驗證成功之前，title會顯示nothing to see，
+         * 直到TouchID或FaceID驗證成功，才會顯示"Secret stuff"。
+         */
         title = "Nothing to see here"
         
         // 建立center，通知我們鍵盤的狀態
@@ -59,9 +63,15 @@ class ViewController: UIViewController {
         let context = LAContext()
         var error: NSError?
         
+        /** 檢驗User是否有開啟生物識別功能。
+         * 即便手機支援TouchID或FaceID，User也必須在系統中Enable生物識別的使用。
+         */
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
             let reason = "Identify yourself!"
             
+            /** 執行TouchID或FaceID驗證。
+             * 是否驗證成功會回傳給closure的success(bool)。
+             */
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
                 /** 由於User在執行FaceID或是TouchID時會需要時間，
                  * 因此在驗證執行完後，要用DispatchQueue將後續的工作推回UI。
@@ -87,31 +97,36 @@ class ViewController: UIViewController {
         }
     }
     
-    // 將密文轉換為明文
-    func unlockSecretMessage(){
-        secret.isHidden = false
-        title = "Secret stuff!"
-        
-        // 將文字用KeychainWrapper包裝
-        secret.text = KeychainWrapper.standard.string(forKey: "SecretMessage") ?? ""
-    }
-    
-    // 將明文轉為密文
+    /** 將明文轉為密文，存入Keychain中。
+     * 此處我們使用MIT License 的開源專案KeychainWrapper，
+     * 讓Keychain的操作可以如同使用UserDefault。
+     */
     @objc func saveSecretMessage(){
+        // 確認textField目前處於"顯示"狀態
         guard secret.isHidden == false else { return }
         
         // 將明文存入Keychain之中
         KeychainWrapper.standard.set(secret.text, forKey: "SecretMessage")
         
         /** 通知我們應該要離開focus的狀態(請系統離開編輯狀態)。
-         *
          * 教材說明：
          * https://www.hackingwithswift.com/read/28/3/writing-somewhere-safe-the-ios-keychain
          */
         secret.resignFirstResponder()
+        // 隱藏textField
         secret.isHidden = true
         title = "Nothing to see here"
     }
     
+    // 解密先前儲存於Keychain中的內容
+    func unlockSecretMessage(){
+        // 顯示textField
+        secret.isHidden = false
+        title = "Secret stuff!"
+        
+        // 將文字用KeychainWrapper包裝
+        secret.text = KeychainWrapper.standard.string(forKey: "SecretMessage") ?? ""
+    }
+      
 }
 
