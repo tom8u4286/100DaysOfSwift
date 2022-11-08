@@ -1,7 +1,10 @@
 # 100 Days of Swift
 本專案夾存放2022年Q4實作100 Days of Swift的30個Project。以下介紹各Project的實作重點。
 
-Swift語法重點:
+100 Days of Swift 教材網址:
+https://www.hackingwithswift.com/100
+
+### Swift語法重點:
 1. Optional變數設計
 2. Closure概念
 3. ARC的strong, weak與Reference Cycle記憶體題概念
@@ -11,7 +14,7 @@ Swift語法重點:
 7. if let的概念與使用
 8. guard if 的概念與使用
  
-重點實作範圍:
+### 重點實作範圍:
 1. UIKit基本操作
     - NavigationView操作
     - TableView與CollectionView及其Cell實作
@@ -32,37 +35,64 @@ Swift語法重點:
     - 地點標記
     - 標記點選提示框
 
-各專案實作重點:
-- [Project1 Storm Viewer 相片檢視](#project1-storm-viewer-相片檢視)
+### 各專案實作重點:
+- [Project1 Storm Viewer 小相簿](#project1-storm-viewer-小相簿)
+- [Project2 Guess the Flag 猜國旗](#project2-guess-the-flag-猜國旗) 
+- [Project3 Storm Viewer 存入手機相簿](#project3-Storm-Viewer-存入手機相簿) 
+- [Project4 Easy Browser 簡易瀏覽器](#project4-Easy-Browser-簡易瀏覽器) 
+- [Project5 Word Scramble 單字激盪](#project5-Word-Scramble-單字激盪)
+- [Project6 以VFL設定AutoLayout](#project6-以VFL設定AutoLayout)
+- [Project7 白宮請願API調用](#project7-白宮請願API調用)
+- [Project8 Swifty Words iPad單字拼湊遊戲](#project8-Swifty-Words-iPad單字拼湊遊戲)
+- [Project9 GCD 背景調用API資料](#project9-GCD-背景調用API資料)
+- [Project10 Name to Faces 相片與命名](#project10-Name-to-Faces-相片與命名)
+- [Project11](#project11-)
+- [Project12](#project12-)
+- [Project13](#project13-)
+- [Project14](#project14-)
+- [Project15](#project15-)
+- [Project16](#project16-)
+- [Project17](#project17-)
+- [Project18](#project18-)
+- [Project19](#project19-)
+- [Project20](#project20-)
+- [Project21](#project21-)
+- [Project22](#project22-)
+- [Project23](#project23-)
+- [Project24](#project24-)
+- [Project25](#project25-)
+- [Project26](#project26-)
+- [Project27](#project27-)
+- [Project28](#project28-)
+- [Project29](#project29-)
+- [Project30](#project30-)
 
-100 Days of Swift 教材網址:
-https://www.hackingwithswift.com/100
 
 ----------------------------------
-## Project1 Storm Viewer 相片檢視 
+## Project1 Storm Viewer 小相簿 
 1. 使用TableViewController，並設定numberOfRowsInSection與cellForRowAt
 2. 使用dequeueReusableCell，提高記憶體使用效率
 3. 使用FileManager讀取Bundle中具有某檔名的圖片
 4. 使用as?，嘗試將物件轉型至某一類別型態
 5. 使用storyboard設計Layout，並使用AutoLayout contraints設計imageView的大小
 
-## Project2 國旗國名小遊戲
+## Project2 Guess the Flag 猜國旗
 1. 使用storyboard設計三個國旗按鈕，並設計AutoLayout，將國旗放置整齊。
 2. 使用NavigationController，設定標題。
 3. 使用Int.Random，讓各題的答案皆在不同位置(如：第一題正確答案為A，第二題正確答案為C)。
 4. 使用shuffle()，讓各題的選項皆不同(如：第一題為US、Japan、UK，第二題為Spain、Franch、Russian)。
 5. 使用AlertController，提示玩家答對或答錯。
 
-## Project3 Storm Viewer圖片存入手機相簿
+## Project3 Storm Viewer 存入手機相簿
 1. 使用rightBarButtonItem，設定ActionButton。
 2. 設定Button點選後要觸發的function，以@objc設定funcion。
 
-## Project4 WebView網頁載入與進度條設計
+## Project4 Easy Browser 簡易瀏覽器
 1. 實作網頁載入進度條ProgressView，並以observeValue更新載入進度狀態。
 2. 透過WKNavigationDelegate，接收webView的行為事件通知。
 3. 以webView的decidePolicyFor來控管即將前往的網頁。
 
-## Project5 Word Scramble文字腦力激盪遊戲
+## Project5 Word Scramble 單字激盪
 1. 參照迴圈reference cycle(strong, weak, unowned)問題練習。
 2. contentsOfFiles讀取Bundle中的檔案，設定至標題作為題目。
 3. 設計Alert中的TextField，讓User在Alert中可以輸入文字。
@@ -82,7 +112,7 @@ https://www.hackingwithswift.com/100
 4. 以JSONDecoder將API截取的資料轉換成Codable結構
 5. 以webView.loadHTMLString呈現HTML的源碼
 
-## Project8 Swifty Words iPad文字拼湊遊戲
+## Project8 Swifty Words iPad單字拼湊遊戲
 1. 程式設定Layout Contraints
 2. 設定Label的TextAlignment
 3. 設定元件的ContentHuggingProiority，調整元件被拉長的容易度
@@ -90,7 +120,7 @@ https://www.hackingwithswift.com/100
 
 ## Project9 GCD 背景調用API資料
 
-## Project10 以ImagePicker將相簿內容存放於CollectionView
+## Project10 Name to Faces 相片與命名
 1. 利用CollectionViewController設計圖片Layout
 2. 利用ImagePicker取得手機相簿照片
 3. 設定取用相簿權限
