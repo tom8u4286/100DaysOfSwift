@@ -6,23 +6,24 @@
 https://www.hackingwithswift.com/100
 
 ## Swift語法實作重點:
-1. **Optional變數設計**
-2. **Closure概念**
-3. **ARC的strong, weak與Reference Cycle記憶體題概念**
-4. **Delegate接收事件的概念**
+1. ⚠️  **Optional變數設計**
+2. ⚠️  **Closure概念**
+3. ⚠️  **ARC的strong, weak與Reference Cycle記憶體題概念**
+4. ⚠️  **Delegate接收事件的概念**
 5. Extensions擴充property與function概念
-6. @objc的概念與使用
-7. @escaping的概念與使用
-8. if let的概念與使用
-9. guard if 的概念與使用
+6. optional物件"?"的使用
+7. @objc的概念與使用
+8. @escaping的概念與使用
+9. if let的概念與使用
+10. guard if 的概念與使用
  
 ## 工具庫應用重點:
-1. **UIKit基本操作**
+1. ⚠️  **UIKit基本操作**
     - NavigationController操作
     - TabBarController操作
     - TableViewController與CollectionViewController及其Cell操作
-    - **以NSLayoutConstraint或Storyboard實現AutoLayout**
-    - **GCD基本操作**
+    - ⚠️  **以NSLayoutConstraint或Storyboard實現AutoLayout**
+    - ⚠️  **GCD基本操作**
     - UserDefaults資料儲存
     - JSON Encoder、Decoder與Codable協議
     - NSKeyedArchiver與NSKeyedUnarchiver操作 
@@ -30,13 +31,13 @@ https://www.hackingwithswift.com/100
     - UIImagePicker操作
     - 動畫基本操作
     - UI元件: UILabel, UIButton, UIImage, UISlider等操作
-3. **LocalAuthentication 身份驗證**
+3. ⚠️  **LocalAuthentication 身份驗證**
     - TouchID與FaceID生物特徵驗證事件監聽
     - 存取Keychain加密資料
-4. **Notification 事件通知中心**
+4. ⚠️  **Notification 事件通知中心**
     - 鍵盤事件監聽
     - App前、背景轉換事件監聽
-5. **UserNotification User通知中心**
+5. ⚠️  **UserNotification User通知中心**
     - 設計發送通知的trigger、category、request
 6. MultipeerConnectivity
     - 與鄰近iOS裝置進行資料傳遞
