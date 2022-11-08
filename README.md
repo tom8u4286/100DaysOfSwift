@@ -46,26 +46,26 @@ https://www.hackingwithswift.com/100
 - [Project8 Swifty Words iPad單字拼湊遊戲](#project8-Swifty-Words-iPad單字拼湊遊戲)
 - [Project9 GCD 背景調用API資料](#project9-GCD-背景調用API資料)
 - [Project10 Name to Faces 相片與命名](#project10-Name-to-Faces-相片與命名)
-- [Project11](#project11-)
-- [Project12](#project12-)
-- [Project13](#project13-)
-- [Project14](#project14-)
-- [Project15](#project15-)
-- [Project16](#project16-)
-- [Project17](#project17-)
-- [Project18](#project18-)
-- [Project19](#project19-)
-- [Project20](#project20-)
-- [Project21](#project21-)
-- [Project22](#project22-)
-- [Project23](#project23-)
-- [Project24](#project24-)
-- [Project25](#project25-)
+- [Project11 SpriteKit彈珠台iPad小遊戲](#project11-SpriteKit彈珠台iPad小遊戲)
+- [Project12 UserDefaults長久儲存資料](#project12-UserDefaults長久儲存資料)
+- [Project13 Instafilter 圖片濾鏡](#project13-Instafilter-圖片濾鏡)
+- [Project14 Whack-a-Penguin 打企鵝小遊戲](#project14-Whack-a-Penguin-打企鵝小遊戲)
+- [Project15 UIKit動畫](#project15-UIKit動畫)
+- [Project16 Capital Cities地圖與首都標記](#project16-Capital-Cities地圖與首都標記)
+- [Project17 Space Race太空垃圾小遊戲](#project17-Space-Race太空垃圾小遊戲)
+- [Project18 Debug方法操作](#project18-Debug方法操作)
+- [Project19](#project19)
+- [Project20 Fireworks Night煙火小遊戲](#project20-Fireworks-Night煙火小遊戲)
+- [Project21 Local Notification事件通知](#project21-Local-Notification事件通知)
+- [Project22 iBeacon裝置距離偵測](#project22-iBeacon裝置距離偵測)
+- [Project23 Swifty Ninja切水果小遊戲](#project23-Swifty-Ninja切水果小遊戲)
+- [Project24 Swift字串操作](#project24-Swift字串操作)
+- [Project25 Selfie Share-鄰近iOS裝置圖片分享](#project25-Selfie-Share-鄰近iOS裝置圖片分享)
 - [Project26](#project26-)
-- [Project27](#project27-)
-- [Project28](#project28-)
+- [Project27 Core Graphic繪圖](#project27-Core-Graphic繪圖)
+- [Project28 Secret Swift 生物識別TouchID、FaceID與Keychain應用](#project28-Secret Swift-生物識別TouchID、FaceID與Keychain應用)
 - [Project29](#project29-)
-- [Project30](#project30-)
+- [Project30 效能與記憶體優化](#project30-效能與記憶體優化)
 
 
 ----------------------------------
@@ -248,7 +248,7 @@ https://www.hackingwithswift.com/100
 4. 各類形狀繪製: 棋盤、方形迴圈、旋轉方形
 5. 利用UIGraphicsImageRendererc繪製有字體文字(NSAttributedString)與圖片(UIImage)
 
-## Project28 Secret Swift 生物識別TouchID FaceID與Keychain應用
+## Project28 Secret Swift 生物識別TouchID、FaceID與Keychain應用
 1. 使用LocalAuthentication進行TouchID或FaceID身份驗證
 2. 請求生物識別使用權限
 3. 使用開源專案KeychainWrapper，將資料加密寫入iOS Keychain
