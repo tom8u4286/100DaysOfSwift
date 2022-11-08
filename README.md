@@ -1,41 +1,59 @@
 # 100 Days of Swift
-本專案夾存放2022年Q4實作100 Days of Swift的30個Project。以下介紹各Project的實作重點。
+本專案夾存放100 Days of Swift的30個Project。
+以下摘要實作重點。
 
 100 Days of Swift 教材網址:
 https://www.hackingwithswift.com/100
 
-### Swift語法重點:
-1. Optional變數設計
-2. Closure概念
-3. ARC的strong, weak與Reference Cycle記憶體題概念
-4. Delegate接收事件的概念
-5. @objc的概念與使用
-6. @escaping的概念與使用
-7. if let的概念與使用
-8. guard if 的概念與使用
+## Swift語法實作重點:
+1. **Optional變數設計**
+2. **Closure概念**
+3. **ARC的strong, weak與Reference Cycle記憶體題概念**
+4. **Delegate接收事件的概念**
+5. Extensions擴充property與function概念
+6. @objc的概念與使用
+7. @escaping的概念與使用
+8. if let的概念與使用
+9. guard if 的概念與使用
  
-### 重點實作範圍:
-1. UIKit基本操作
-    - NavigationView操作
-    - TableView與CollectionView及其Cell實作
-    - 以NSLayoutConstraint實作AutoLayout
-    - 以Storyboard實作AutoLayout
-    - UI元件: UILabel, UIButton, UIImage, UISlide等操作
-    - UIAlertController
-    - 基本動畫操作
-2. GCD基本操作
-    - 以asyncAfter延後執行時間
-    - 以.main.async將API取得資料重新顯示UI
-3. UserDefaults資料儲存
-4. TouchID與FaceID生物辨識驗證
-5. UserNotification通知發送與設計
-6. SpriteKit遊戲框架操作
-7. MapKit基本操作
-    - 地圖繪製
+## 工具庫應用重點:
+1. **UIKit基本操作**
+    - NavigationController操作
+    - TabBarController操作
+    - TableViewController與CollectionViewController及其Cell操作
+    - **以NSLayoutConstraint或Storyboard實現AutoLayout**
+    - **GCD基本操作**
+    - UserDefaults資料儲存
+    - JSON Encoder、Decoder與Codable協議
+    - NSKeyedArchiver與NSKeyedUnarchiver操作 
+    - UIAlertController操作
+    - UIImagePicker操作
+    - 動畫基本操作
+    - UI元件: UILabel, UIButton, UIImage, UISlider等操作
+3. **LocalAuthentication 身份驗證**
+    - TouchID與FaceID生物特徵驗證事件監聽
+    - 存取Keychain加密資料
+4. **Notification 事件通知中心**
+    - 鍵盤事件監聽
+    - App前、背景轉換事件監聽
+5. **UserNotification User通知中心**
+    - 設計發送通知的trigger、category、request
+6. MultipeerConnectivity
+    - 與鄰近iOS裝置進行資料傳遞
+7. SpriteKit 遊戲
+    - 創建遊戲物理環境
+    - 物體碰撞事件監聽
+    - 玩家觸控行為監聽
+8. MapKit 地圖
     - 地點標記
     - 標記點選提示框
+9. CoreImage 圖片
+    - 圖片濾鏡
+    - CIImage、CGImage與UIImage的轉換
+9. CoreLocation 手機位置
+    - iBeacon裝置距離偵測
 
-### 各專案實作重點:
+## 各專案實作重點:
 - [Project1 Storm Viewer 小相簿](#project1-storm-viewer-小相簿)
 - [Project2 Guess the Flag 猜國旗](#project2-guess-the-flag-猜國旗) 
 - [Project3 Storm Viewer 存入手機相簿](#project3-Storm-Viewer-存入手機相簿) 
@@ -54,17 +72,17 @@ https://www.hackingwithswift.com/100
 - [Project16 Capital Cities地圖與首都標記](#project16-Capital-Cities地圖與首都標記)
 - [Project17 Space Race太空垃圾小遊戲](#project17-Space-Race太空垃圾小遊戲)
 - [Project18 Debug方法操作](#project18-Debug方法操作)
-- [Project19](#project19)
+- [Project19 TextField執行程式](#project19-TextField執行程式)
 - [Project20 Fireworks Night煙火小遊戲](#project20-Fireworks-Night煙火小遊戲)
 - [Project21 Local Notification事件通知](#project21-Local-Notification事件通知)
 - [Project22 iBeacon裝置距離偵測](#project22-iBeacon裝置距離偵測)
 - [Project23 Swifty Ninja切水果小遊戲](#project23-Swifty-Ninja切水果小遊戲)
 - [Project24 Swift字串操作](#project24-Swift字串操作)
 - [Project25 Selfie Share-鄰近iOS裝置圖片分享](#project25-Selfie-Share-鄰近iOS裝置圖片分享)
-- [Project26](#project26-)
+- [Project26](#project26)
 - [Project27 Core Graphic繪圖](#project27-Core-Graphic繪圖)
-- [Project28 Secret Swift 生物識別TouchID、FaceID與Keychain應用](#project28-Secret Swift-生物識別TouchID、FaceID與Keychain應用)
-- [Project29](#project29-)
+- [Project28 Secret Swift 生物識別TouchID、FaceID與Keychain應用](#project28-Secret-Swift-生物識別TouchID、FaceID與Keychain應用)
+- [Project29](#project29)
 - [Project30 效能與記憶體優化](#project30-效能與記憶體優化)
 
 
@@ -188,7 +206,9 @@ https://www.hackingwithswift.com/100
 2. assert的使用與crash條件設定
 3. Xcode的breakpoint與條件設定
 
-## Project19
+## Project19 TextField執行程式
+1. 使用NotificationCenter接收鍵盤事件
+2. 依據鍵盤出現隱藏，調整TextField高度，避免編輯處被擋住
 
 ## Project20 Fireworks Night煙火小遊戲
 1. 利用SpriteKit創建小遊戲

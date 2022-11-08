@@ -3,7 +3,7 @@
 //  Project13
 //
 //  Created by 曲奕帆 on 2022/10/17.
-//
+// 本篇可以參考彼得潘文章 #74 利用 CIFilter 實現美麗的圖片濾鏡
 
 
 import CoreImage
