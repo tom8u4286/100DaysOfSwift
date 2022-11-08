@@ -1,14 +1,44 @@
-本專案夾存放2022年練習100 Days of Swift的30個練習Project。以下介紹各Project的練習重點。
+# 100 Days of Swift
+本專案夾存放2022年Q4實作100 Days of Swift的30個Project。以下介紹各Project的實作重點。
 
-主要實作重點：
+Swift語法重點:
+1. Optional變數設計
+2. Closure概念
+3. ARC的strong, weak與Reference Cycle記憶體題概念
+4. Delegate接收事件的概念
+5. @objc的概念與使用
+6. @escaping的概念與使用
+7. if let的概念與使用
+8. guard if 的概念與使用
+ 
+重點實作範圍:
+1. UIKit基本操作
+    - NavigationView操作
+    - TableView與CollectionView及其Cell實作
+    - 以NSLayoutConstraint實作AutoLayout
+    - 以Storyboard實作AutoLayout
+    - UI元件: UILabel, UIButton, UIImage, UISlide等操作
+    - UIAlertController
+    - 基本動畫操作
+2. GCD基本操作
+    - 以asyncAfter延後執行時間
+    - 以.main.async將API取得資料重新顯示UI
+3. UserDefaults資料儲存
+4. TouchID與FaceID生物辨識驗證
+5. UserNotification通知發送與設計
+6. SpriteKit遊戲框架操作
+7. MapKit基本操作
+    - 地圖繪製
+    - 地點標記
+    - 標記點選提示框
 
-- [Project1 Storm Viewer](#project1)
+各專案實作重點:
+- [Project1 Storm Viewer 相片檢視](#project1-storm-viewer-相片檢視)
 
 100 Days of Swift 教材網址:
 https://www.hackingwithswift.com/100
 
 ----------------------------------
-
 ## Project1 Storm Viewer 相片檢視 
 1. 使用TableViewController，並設定numberOfRowsInSection與cellForRowAt
 2. 使用dequeueReusableCell，提高記憶體使用效率
