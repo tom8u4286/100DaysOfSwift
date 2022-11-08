@@ -1,14 +1,20 @@
 本專案夾存放2022年練習100 Days of Swift的30個練習Project。以下介紹各Project的練習重點。
 
+主要實作重點：
+
+- [Project1 Storm Viewer](#project1)
+
 100 Days of Swift 教材網址:
 https://www.hackingwithswift.com/100
 
-## Project1 Storm Viewer 相片檢視
-1. 使用TableViewController，並設定numberOfRowsInSection與cellForRowAt。
-2. 使用dequeueReusableCell，提高記憶體使用效率。
-3. FileManager 練習使用FileManager讀取Bundle中具有某檔名的圖片。
-4. 使用as?，嘗試將物件轉型至某一類別型態。
-5. 使用storyboard設計Layout，並使用AutoLayout contraints設計imageView的大小。
+----------------------------------
+
+## Project1 Storm Viewer 相片檢視 
+1. 使用TableViewController，並設定numberOfRowsInSection與cellForRowAt
+2. 使用dequeueReusableCell，提高記憶體使用效率
+3. 使用FileManager讀取Bundle中具有某檔名的圖片
+4. 使用as?，嘗試將物件轉型至某一類別型態
+5. 使用storyboard設計Layout，並使用AutoLayout contraints設計imageView的大小
 
 ## Project2 國旗國名小遊戲
 1. 使用storyboard設計三個國旗按鈕，並設計AutoLayout，將國旗放置整齊。
@@ -192,4 +198,9 @@ https://www.hackingwithswift.com/100
 7. 使用notificationCenter，接收App前、背景狀態改變事件
 
 ## Project29
-## Project30
+## Project30 效能與記憶體優化
+1. 使用Instrument執行App，觀察執行中效能與記憶體使用情形
+2. 排除「強參考」問題，避免reference cycle
+3. 改善UIImage調用檔案方式(UIImage(path:))，節省記憶體使用
+4. 更改viewController Array的設計方式，節省記憶體使用 
+
