@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ryp-Sh-0QM">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,11 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qI8-7e-SPw">
-                                <rect key="frame" x="95" y="101" width="200" height="100"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qI8-7e-SPw">
+                                <rect key="frame" x="83" y="101" width="224" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="2eP-Y1-kbE"/>
-                                    <constraint firstAttribute="width" constant="200" id="CQz-ah-BA2"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="us"/>
@@ -28,10 +28,9 @@
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YBT-Rm-4yh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4R-yy-Zi2">
-                                <rect key="frame" x="95" y="341" width="200" height="100"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4R-yy-Zi2">
+                                <rect key="frame" x="83" y="341" width="224" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="FhJ-Zx-nKj"/>
                                     <constraint firstAttribute="height" constant="100" id="k2r-d7-l4U"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
@@ -40,10 +39,9 @@
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qwb-CC-y53"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8H-NU-KvJ">
-                                <rect key="frame" x="95" y="221" width="200" height="100"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8H-NU-KvJ">
+                                <rect key="frame" x="83" y="221" width="224" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="n1C-TX-72v"/>
                                     <constraint firstAttribute="height" constant="100" id="xM2-L2-4Hm"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>

@@ -58,10 +58,16 @@ class ViewController: UIViewController {
         // 設定本題正確答案的位置
         correctAnswer = Int.random(in: 0...2)
         
+        // 將按鈕文字設定為空值
+        button1.setTitle("", for: .normal)
+        button2.setTitle("", for: .normal)
+        button3.setTitle("", for: .normal)
+        
         // 設定圖片
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
+        
         
         // 設定國家名稱作為標題，為本題題目
         title = countries[correctAnswer]
